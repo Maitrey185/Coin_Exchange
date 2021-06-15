@@ -126,7 +126,7 @@ function tipImageOwner(uint _id, uint _amount) public payable{
   _image.tipAmount = _image.tipAmount + _amount;
   images[_id] = _image;
 
-  emit ImageTipped(_id, _image.hash, _image.description, _image.tipAmount, _author);
+  //emit ImageTipped(_id, _image.hash, _image.description, _image.tipAmount, _author);
 }
 
 

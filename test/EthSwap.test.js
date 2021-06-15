@@ -181,15 +181,13 @@ contract('EthSwap', ([deployer, investor, random]) =>{
           let randomBalance = await token.balanceOf(random)
           console.log(randomBalance.toString())
           assert.equal(randomBalance.toString(), tokens('1000'))
-
-
-          const event = result.logs[0].args
-          console.log(event)
-                 // assert.equal(event.id.toNumber(), 1, 'id is correct')
-                 //  assert.equal(event.hash, hash, 'Hash is correct')
-                 //  assert.equal(event.description, 'Image description', 'description is correct')
-                 //  assert.equal(event.tipAmount, tokens('500'), 'tip amount is correct')
-                 //  assert.equal(event.author, random, 'author is correct')
+          // const event = result.logs[0].args
+          // console.log(event)
+          //        assert.equal(event.id.toNumber(), 1, 'id is correct')
+          //         assert.equal(event.hash, hash, 'Hash is correct')
+          //         assert.equal(event.description, 'Image description', 'description is correct')
+          //         assert.equal(event.tipAmount, tokens('500'), 'tip amount is correct')
+          //         assert.equal(event.author, random, 'author is correct')
          })
 
 })

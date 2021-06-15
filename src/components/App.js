@@ -1,51 +1,27 @@
-import React, { Component } from 'react';
-import logo from '../logo.png';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import  Web3 from 'web3';
+import Token from '../abis/Token.json'
+import EthSwap from '../abis/EthSwap.json'
+import { BrowserRouter as Router,Switch, Route, Link, useHistory} from "react-router-dom";
+import Wallet from './Wallet.jsx'
+import Home from './Home'
+import {createStore} from 'redux'
 
-class App extends Component {
-  render() {
+
+
+function App() {
     return (
-      <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.dappuniversity.com/bootcamp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Dapp University
-          </a>
-        </nav>
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                <a
-                  href="http://www.dappuniversity.com/bootcamp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={logo} className="App-logo" alt="logo" />
-                </a>
-                <h1>Dapp University Starter Kit</h1>
-                <p>
-                  Edit <code>src/components/App.js</code> and save to reload.
-                </p>
-                <a
-                  className="App-link"
-                  href="http://www.dappuniversity.com/bootcamp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LEARN BLOCKCHAIN <u><b>NOW! </b></u>
-                </a>
-              </div>
-            </main>
-          </div>
-        </div>
-      </div>
+
+      <Router>
+      <Switch>
+      <Route path="/" exact><Home/></Route>
+      <Route path="/wallet" exact><Wallet balance={0} tokbalance={0}/></Route>
+
+      </Switch>
+      </Router>
+
     );
-  }
-}
+};
 
 export default App;
