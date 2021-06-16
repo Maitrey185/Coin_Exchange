@@ -7,6 +7,13 @@ import { BrowserRouter as Router, Route, Link, useHistory} from "react-router-do
 import Wallet from './Wallet.jsx'
 import {useSelector, useDispatch} from 'react-redux'
 import {changeNo} from '../actions/index'
+import {changetokbal} from '../actions/index'
+import {changebal} from '../actions/index'
+import store from "../store"
+
+
+
+
 var accounts = []
 var ethBalance = 0
 var tokBalance = 0
@@ -15,16 +22,23 @@ var ac = 0
 
 function Home(){
 
-  const myState = useSelector((state)=> state.changeAcc)
-  const dispatch = useDispatch();
-  console.log(myState)
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const myState = store.getState().Acc
+  const mybal = store.getState().bal
+  const mytokbal = store.getState().tokbal
+
+  const dispatch = useDispatch();
+
+  console.log(myState)
+  console.log(mybal)
+  console.log(mytokbal)
 
   function gotoWallet() {
     dispatch(changeNo(ac))
-    console.log("bal")
-    setbal(ethBalance)
-    settokbal(tokBalance.toString())
+    dispatch(changebal(ethBalance))
+    dispatch(changetokbal(tokBalance.toString()))
   }
 
 
@@ -79,11 +93,6 @@ function Home(){
         fetchMyAPI()
 
     });
-
-
-      const [acnt, setacnt] = useState(ac);
-      const [bal, setbal] = useState(ethBalance);
-      const [tokbal, settokbal] = useState(tokBalance.toString());
 
       return (
 

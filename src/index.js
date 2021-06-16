@@ -8,7 +8,7 @@ import {Provider} from 'react-redux'
 
 
 store.subscribe(()=> console.log(store.getState()));
-console.log(store.getState());
+console.log(store.getState().Acc);
 ReactDOM.render(
   <Provider store={store}>
       <App />

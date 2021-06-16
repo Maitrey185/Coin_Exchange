@@ -6,20 +6,20 @@ import EthSwap from '../abis/EthSwap.json'
 import { BrowserRouter as Router, Route, Link,useHistory} from "react-router-dom";
 import BuyForm from './BuyForm'
 import {useSelector} from 'react-redux'
+import SellForm from './SellForm'
+import logo from '../logo3.png'
+
+function Wallet() {
 
 
-function Wallet(props) {
-  const counter = useSelector(state=>state.counter)
+  const [form, setform] = useState('buy');
 
-  console.log(props.tokbalance)
-
-  let state = 'buy'
   let content
-    if(state === 'buy') {
-      content = <BuyForm
-        balance={props.balance}
-        tokbalance={props.tokbalance}
-      />
+    if(form === 'buy') {
+      content = <BuyForm/>
+    }
+    else{
+      content = <SellForm/>
     }
     return (
       <div id="content" className="mt-3">
@@ -27,14 +27,15 @@ function Wallet(props) {
         <div className="d-flex justify-content-between mb-3">
           <button
               className="btn btn-light"
-
+              onClick={() => setform('buy')}>
             >
             Buy
           </button>
-          <span className="text-muted">&lt; &nbsp; &gt;</span>
+          <span className="text-muted">&lt;<img src={logo} height='52' alt=""/>&gt;</span>
+
           <button
               className="btn btn-light"
-
+              onClick={() => setform('sell')}>
             >
             Sell
           </button>

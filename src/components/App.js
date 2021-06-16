@@ -16,7 +16,7 @@ function App() {
       <Router>
       <Switch>
       <Route path="/" exact><Home/></Route>
-      <Route path="/wallet" exact><Wallet balance={0} tokbalance={0}/></Route>
+      <Route path="/wallet" exact><Wallet/></Route>
 
       </Switch>
       </Router>
