@@ -9,6 +9,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {changeNo} from '../actions/index'
 import {changetokbal} from '../actions/index'
 import {changebal} from '../actions/index'
+import {setContract} from '../actions/index'
 import store from "../store"
 
 
@@ -18,29 +19,24 @@ var accounts = []
 var ethBalance = 0
 var tokBalance = 0
 var ac = 0
+var ethSwap;
+
 
 
 function Home(){
 
-
+  console.log("ww")
   const [isLoading, setIsLoading] = useState(false);
 
-  const myState = store.getState().Acc
-  const mybal = store.getState().bal
-  const mytokbal = store.getState().tokbal
+  let history = useHistory();
 
+  const someEventHandler = event => {
+          history.push({
+           pathname: '/wallet',
+           state: { detail: 'some_value' }
+       });
+    };
   const dispatch = useDispatch();
-
-  console.log(myState)
-  console.log(mybal)
-  console.log(mytokbal)
-
-  function gotoWallet() {
-    dispatch(changeNo(ac))
-    dispatch(changebal(ethBalance))
-    dispatch(changetokbal(tokBalance.toString()))
-  }
-
 
   async function loadBlockchainData() {
     if (window.ethereum) {
@@ -49,8 +45,7 @@ function Home(){
       const web3 = window.web3
        accounts = await web3.eth.getAccounts()
        ethBalance = await web3.eth.getBalance(accounts[0])
-      console.log(ethBalance)
-      console.log(accounts[0])
+
 
       const networkId =  await web3.eth.net.getId()
       const tokenData = Token.networks[networkId]
@@ -58,7 +53,7 @@ function Home(){
           const token = await web3.eth.Contract(Token.abi, tokenData.address)
 
           tokBalance = await token.methods.balanceOf(accounts[0]).call()
-          console.log(tokBalance.toString())
+
 
 
          } else {
@@ -67,14 +62,11 @@ function Home(){
 
     const ethSwapData = EthSwap.networks[networkId]
           if(ethSwapData) {
-          const ethSwap = await web3.eth.Contract(EthSwap.abi, ethSwapData.address)
+          ethSwap = await web3.eth.Contract(EthSwap.abi, ethSwapData.address)
 
-          console.log(ethSwap)
           }else {
             window.alert('EthSwap contract not deployed to detected network.')
           }
-          console.log(accounts[0]);
-
     return accounts[0]
     }
     else{
@@ -85,14 +77,24 @@ function Home(){
   };
 
 
+
       useEffect(() => {
         async function fetchMyAPI() {
+
           ac = await loadBlockchainData()
+
+          dispatch(changeNo(ac))
+          dispatch(changebal(ethBalance))
+          dispatch(changetokbal(tokBalance.toString()))
+          dispatch(setContract(ethSwap))
+          setIsLoading(false);
         }
 
         fetchMyAPI()
 
     });
+
+
 
       return (
 
@@ -120,14 +122,11 @@ function Home(){
 
                   </a>
 
-                  <h1>Dwight Scrute Here!!</h1>
+                  <h1>{ac}</h1>
                 <button>
                 </button>
-                <Link to='/wallet'>
-                <button onClick={gotoWallet}>Click me
-                </button>
-                </Link>
-                <button >Click me
+
+                <button onClick={someEventHandler}>Click me
                 </button>
 
                 </div>

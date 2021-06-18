@@ -8,8 +8,11 @@ import BuyForm from './BuyForm'
 import {useSelector} from 'react-redux'
 import SellForm from './SellForm'
 import logo from '../logo3.png'
+import buyTokens from './Home'
+import store from "../store"
 
 function Wallet() {
+
 
 
   const [form, setform] = useState('buy');

@@ -18,3 +18,10 @@ export const changetokbal = (num) => {
     payload: num
   }
 }
+
+export const setContract = (num) => {
+  return{
+    type:'set',
+    payload: num
+  }
+}
