@@ -10,6 +10,7 @@ import {changeNo} from '../actions/index'
 import {changetokbal} from '../actions/index'
 import {changebal} from '../actions/index'
 import {setContract} from '../actions/index'
+import {setToken} from '../actions/index'
 import store from "../store"
 
 
@@ -20,10 +21,16 @@ var ethBalance = 0
 var tokBalance = 0
 var ac = 0
 var ethSwap;
+var token;
 
 
 
 function Home(){
+
+
+  ac = useSelector((state)=> state.Acc)
+ const mybal =  useSelector((state)=> state.bal)
+ const mytokbal = useSelector((state)=> state.tokbal)
 
   console.log("ww")
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +57,7 @@ function Home(){
       const networkId =  await web3.eth.net.getId()
       const tokenData = Token.networks[networkId]
           if(tokenData) {
-          const token = await web3.eth.Contract(Token.abi, tokenData.address)
+          token = await web3.eth.Contract(Token.abi, tokenData.address)
 
           tokBalance = await token.methods.balanceOf(accounts[0]).call()
 
@@ -77,16 +84,21 @@ function Home(){
   };
 
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
       useEffect(() => {
         async function fetchMyAPI() {
 
           ac = await loadBlockchainData()
-
+          await sleep(1000)
           dispatch(changeNo(ac))
+          localStorage.setItem("ac", ac);
           dispatch(changebal(ethBalance))
           dispatch(changetokbal(tokBalance.toString()))
           dispatch(setContract(ethSwap))
+          dispatch(setToken(token))
           setIsLoading(false);
         }
 

@@ -25,9 +25,9 @@ function Wallet() {
       content = <SellForm/>
     }
     return (
-      <div id="content" className="mt-3">
+      <div id="content" className="mt-3 text-center" style={{maxWidth:"600px", margin:"auto", padding:"200px 0px 200px 0px"}}>
 
-        <div className="d-flex justify-content-between mb-3">
+        <div className="d-flex justify-content-between mb-3 mt-9">
           <button
               className="btn btn-light"
               onClick={() => setform('buy')}>
@@ -44,7 +44,7 @@ function Wallet() {
           </button>
         </div>
 
-        <div className="card mb-4" >
+        <div className="card mb-5" >
 
           <div className="card-body">
 

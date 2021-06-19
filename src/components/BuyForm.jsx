@@ -5,86 +5,62 @@ import {changetokbal} from '../actions/index'
 import {changebal} from '../actions/index'
 import store from "../store"
 import ethLogo from '../eth-logo.png'
-import logo from '../logo3.png'
-import BigNumber from 'big-number'
+import logo from '../logo7.png'
+import  Web3 from 'web3';
 
 function BuyForm() {
-  const ac = useSelector((state)=> state.Acc)
+  const ac =localStorage.getItem("ac");
   const mybal =  useSelector((state)=> state.bal)
   const mytokbal = useSelector((state)=> state.tokbal)
 
   const [tokbal, settokbal] = useState('0');
 
   const ethSwap = store.getState().contract
+  const token = store.getState().token
 
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  function toFixed(x) {
-  if (Math.abs(x) < 1.0) {
-    var e = parseInt(x.toString().split('e-')[1]);
-    if (e) {
-        x *= Math.pow(10,e-1);
-        x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
-    }
-  } else {
-    var e = parseInt(x.toString().split('+')[1]);
-    if (e > 20) {
-        e -= 20;
-        x /= Math.pow(10,e);
-        x += (new Array(e+1)).join('0');
-    }
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
-  return x;
-}
+
+async function buyTokens(etherAmount){
 
 
-  function buyTokens(etherAmount){
-
-        console.log(ac);
-        ethSwap.methods.buyTokens().send({ value: etherAmount, from: ac }).on('transactionHash', (hash) => {
+        await ethSwap.methods.buyTokens().send({ value: etherAmount, from: ac }).on('transactionHash', async(hash)  => {
           window.web3.eth.getTransaction(hash)
 .then(console.log);
-          var a = parseInt(mybal);
-          var b = parseInt(etherAmount);
-          var newEth = (a-b).toString();
-          a = window.web3.utils.toWei(mytokbal, 'Ether')
 
-          b = window.web3.utils.toWei(tokbal.toString(), 'Ether')
-          a= parseInt(a.toString())
+          await sleep(2000)
+          var newtok = await token.methods.balanceOf(ac).call()
 
-          b = parseInt(b.toString())
-
-          console.log(Math.log(b) + Math.log(1 + (a/b)))
-          console.log(Math.log(a))
-          console.log(Math.log(b))
-          console.log(a+b)
-
-          var newtok = window.web3.utils.fromWei((a+b).toString(), 'Ether')
-          console.log(newtok)
+          const web3 = window.web3
+          var newEth= await web3.eth.getBalance(ac)
 
           dispatch(changebal(newEth))
-
-        setIsLoading(false);
+          dispatch(changetokbal(newtok.toString()))
+        console.log("rrkrr")
       })
-
     };
-
 
 
   console.log(ac)
   console.log(mybal)
   console.log(mytokbal)
 
+
     return (
-      <form className="mb-3" onSubmit={(event) => {
+      <form className="mb-3" onSubmit={async(event) => {
           event.preventDefault()
           let etherAmount
           etherAmount = tokbal/500
           etherAmount=etherAmount.toString()
           console.log(etherAmount)
           etherAmount = window.web3.utils.toWei(etherAmount, 'Ether')
-          buyTokens(etherAmount)
+          await buyTokens(etherAmount)
+          console.log("rrrrr")
+
         }}>
         <div>
           <label className="float-left"><b>Input</b></label>

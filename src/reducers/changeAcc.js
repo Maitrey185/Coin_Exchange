@@ -1,4 +1,4 @@
-const initial = "acc";
+const initial = "";
 
 const changeAcc = (state=initial, action)=>{
       switch(action.type){

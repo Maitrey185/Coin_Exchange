@@ -25,3 +25,10 @@ export const setContract = (num) => {
     payload: num
   }
 }
+
+export const setToken = (num) => {
+  return{
+    type:'settok',
+    payload: num
+  }
+}
