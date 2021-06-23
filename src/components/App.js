@@ -7,17 +7,20 @@ import { BrowserRouter as Router,Switch, Route, Link, useHistory} from "react-ro
 import Wallet from './Wallet.jsx'
 import Home from './Home'
 import {createStore} from 'redux'
-
-
+import Photos from './Photos'
+import {useSelector, useDispatch} from 'react-redux'
+import {addphoto} from '../actions/index'
 
 function App() {
+
+
     return (
 
       <Router>
       <Switch>
       <Route path="/" exact><Home/></Route>
       <Route path="/wallet" exact><Wallet/></Route>
-
+      <Route path="/photo" exact><Photos/></Route>
       </Switch>
       </Router>
 

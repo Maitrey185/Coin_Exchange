@@ -117,8 +117,6 @@ function uploadImage(string memory _imgHash, string memory _description) public 
 //Tip Images
 function tipImageOwner(uint _id, uint _amount) public payable{
 
-  require(_id>0 && _id<=imageCount);
-
   Image memory _image = images[_id];
   address payable _author = _image.author;
 

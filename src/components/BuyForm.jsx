@@ -37,7 +37,7 @@ async function buyTokens(etherAmount){
 
           const web3 = window.web3
           var newEth= await web3.eth.getBalance(ac)
-
+          console.log(newtok)
           dispatch(changebal(newEth))
           dispatch(changetokbal(newtok.toString()))
         console.log("rrkrr")

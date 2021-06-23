@@ -32,3 +32,19 @@ export const setToken = (num) => {
     payload: num
   }
 }
+
+export const addphoto = (data) => {
+  return{
+    type:'add',
+    payload: {
+      id: new Date().getTime().toString(),
+      data:data
+    }
+  }
+}
+
+export const reset = () => {
+  return{
+    type:'reset',
+  }
+}

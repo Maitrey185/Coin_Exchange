@@ -11,9 +11,10 @@ import {changetokbal} from '../actions/index'
 import {changebal} from '../actions/index'
 import {setContract} from '../actions/index'
 import {setToken} from '../actions/index'
+import {addphoto} from '../actions/index'
 import store from "../store"
-
-
+import Photos from './Photos'
+import {reset} from '../actions/index'
 
 
 var accounts = []
@@ -22,8 +23,8 @@ var tokBalance = 0
 var ac = 0
 var ethSwap;
 var token;
-
-
+var imagesCount=0
+var images =[]
 
 function Home(){
 
@@ -31,9 +32,9 @@ function Home(){
   ac = useSelector((state)=> state.Acc)
  const mybal =  useSelector((state)=> state.bal)
  const mytokbal = useSelector((state)=> state.tokbal)
+ const images = useSelector((state)=> state.images)
 
-  console.log("ww")
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   let history = useHistory();
 
@@ -43,6 +44,14 @@ function Home(){
            state: { detail: 'some_value' }
        });
     };
+    const phoEventHandler = event => {
+            history.push({
+             pathname: '/photo',
+             state: { detail: 'some_value' }
+         });
+
+      
+      };
   const dispatch = useDispatch();
 
   async function loadBlockchainData() {
@@ -70,6 +79,8 @@ function Home(){
     const ethSwapData = EthSwap.networks[networkId]
           if(ethSwapData) {
           ethSwap = await web3.eth.Contract(EthSwap.abi, ethSwapData.address)
+
+           // Sort images. Show highest tipped images first
 
           }else {
             window.alert('EthSwap contract not deployed to detected network.')
@@ -135,12 +146,12 @@ function Home(){
                   </a>
 
                   <h1>{ac}</h1>
-                <button>
-                </button>
-
-                <button onClick={someEventHandler}>Click me
-                </button>
-
+                {isLoading
+                  ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
+                  :  <div><button onClick={someEventHandler}>Click me
+                    </button>
+                    <button onClick={phoEventHandler}>Photorrso</button></div>
+                }
                 </div>
 
               </main>
