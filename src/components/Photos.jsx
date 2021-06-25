@@ -54,6 +54,8 @@ function Photos(){
 }
 
 async function tipImageOwner(id, tipAmount) {
+  id=parseInt(id)
+  id=(id+1).toString()
   console.log(id)
   console.log(tipAmount)
   setIsLoading(true)
@@ -79,7 +81,7 @@ imagesCount = await ethSwap.methods.imageCount().call()
 
 console.log(imagesCount)
 // Load images
- for (var i = 0; i < imagesCount; i++) {
+ for (var i = 1; i <= imagesCount; i++) {
    const image = await ethSwap.methods.images(i).call()
    dispatch(addphoto(image))
    console.log(image)
@@ -143,7 +145,7 @@ start()
               <p>&nbsp;</p>
               { images.list.map((image,key) => {
                   return(
-                    <div className="card mb-4" key={key} >
+                    <div className="card mb-4" key={image.id} >
                       <div className="card-header">
                         <img
                           className='mr-2'
@@ -158,7 +160,7 @@ start()
                           <p className="text-center"><img src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '420px'}}/></p>
                           <p>{image.data.description}</p>
                         </li>
-                        <li key={key} className="list-group-item py-2">
+                        <li key={image.id} className="list-group-item py-2">
                           <small className="float-left mt-1 text-muted">
                             TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} ETH
                           </small>

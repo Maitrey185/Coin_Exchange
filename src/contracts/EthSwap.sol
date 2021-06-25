@@ -128,4 +128,55 @@ function tipImageOwner(uint _id, uint _amount) public payable{
 }
 
 
+ //Vedios
+  uint public videoCount = 0;
+  mapping(uint => Video) public videos;
+
+  struct Video {
+    uint id;
+    string hash;
+    string title;
+    uint tipAmount;
+    address payable author;
+  }
+
+  event VideoUploaded(
+    uint id,
+    string hash,
+    string title,
+    uint tipAmount,
+    address author
+  );
+
+
+  function uploadVideo(string memory _videoHash, string memory _title) public {
+    // Make sure the video hash exists
+    require(bytes(_videoHash).length > 0);
+    // Make sure video title exists
+    require(bytes(_title).length > 0);
+    // Make sure uploader address exists
+    require(msg.sender!=address(0));
+
+    // Increment video id
+    videoCount ++;
+
+    // Add video to the contract
+    videos[videoCount] = Video(videoCount, _videoHash, _title,0 , msg.sender);
+    // Trigger an event
+    emit VideoUploaded(videoCount, _videoHash, _title,0 , msg.sender);
+  }
+
+
+  function tipVideoOwner(uint _id, uint _amount) public payable{
+
+    Video memory _video = videos[_id];
+    address payable _author = _video.author;
+
+    transferTokens(_amount, _author);
+    _video.tipAmount = _video.tipAmount + _amount;
+    videos[_id] = _video;
+
+    //emit ImageTipped(_id, _image.hash, _image.description, _image.tipAmount, _author);
+  }
+
 }

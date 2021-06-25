@@ -190,7 +190,79 @@ contract('EthSwap', ([deployer, investor, random]) =>{
           //         assert.equal(event.author, random, 'author is correct')
          })
 
-})
+       })
+
+
+        describe('videos', async () => {
+        let result, videoCount
+        const hash = 'QmV8cfu6n4NT5xRr2AHdKxFMTZEJrA44qgrBCr739BN9Wb'
+
+        before(async () => {
+        result = await ethSwap.uploadVideo(hash, 'Video title', { from: random })
+        videoCount = await ethSwap.videoCount()
+        })
+
+        //check event
+        it('creates videos', async () => {
+        // SUCESS
+        assert.equal(videoCount, 1)
+        const event = result.logs[0].args
+        assert.equal(event.id.toNumber(), videoCount.toNumber(), 'id is correct')
+        assert.equal(event.hash, hash, 'Hash is correct')
+        assert.equal(event.title, 'Video title', 'title is correct')
+        assert.equal(event.author, random, 'author is correct')
+
+        // FAILURE: Video must have hash
+        await ethSwap.uploadVideo('', 'Video title', { from: random }).should.be.rejected;
+
+        // FAILURE: Video must have title
+        await ethSwap.uploadVideo('Video hash', '', { from: random }).should.be.rejected;
+        })
+
+        //check from Struct
+        it('lists videos', async () => {
+        const video = await ethSwap.videos(videoCount)
+        assert.equal(video.id.toNumber(), videoCount.toNumber(), 'id is correct')
+        assert.equal(video.hash, hash, 'Hash is correct')
+        assert.equal(video.title, 'Video title', 'title is correct')
+        assert.equal(video.author, random, 'author is correct')
+        })
+        })
+
+        describe('tipVideoOwner()', async () => {
+
+          const hash = 'QmV8cfu6n4NT5xRr2AHdKxFMTZEJrA44qgrBCr739BN9Wb'
+
+          let result
+          before(async () => {
+
+              await ethSwap.buyTokens({from:investor, value: web3.utils.toWei('1', 'ether')})
+
+              await token.approve(ethSwap.address, tokens('500'), {from: investor})
+
+              result =  await ethSwap.tipVideoOwner(1, tokens('500'), {from:investor})
+          })
+          it('Allows user to tip owner of a image', async () =>{
+            let investorBalance = await token.balanceOf(investor)
+            console.log(investorBalance.toString())
+            assert.equal(investorBalance.toString(), tokens('0'))
+
+            let randomBalance = await token.balanceOf(random)
+            console.log(randomBalance.toString())
+            assert.equal(randomBalance.toString(), tokens('1500'))
+            // const event = result.logs[0].args
+            // console.log(event)
+            //        assert.equal(event.id.toNumber(), 1, 'id is correct')
+            //         assert.equal(event.hash, hash, 'Hash is correct')
+            //         assert.equal(event.description, 'Image description', 'description is correct')
+            //         assert.equal(event.tipAmount, tokens('500'), 'tip amount is correct')
+            //         assert.equal(event.author, random, 'author is correct')
+           })
+
+         })
+
+
+
 })
 
 // contract('Photos', ([deployer, author, tipper]) => {
