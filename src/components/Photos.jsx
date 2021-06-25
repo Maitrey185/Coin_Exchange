@@ -59,6 +59,7 @@ async function tipImageOwner(id, tipAmount) {
   setIsLoading(true)
   await token.methods.approve(ethSwap.address, tipAmount).send({ from: ac }).on('transactionHash', async(hash) => {
   await ethSwap.methods.tipImageOwner(id, tipAmount).send({ from: ac}).on('transactionHash', (hash) => {
+    console.log(hash)
   setIsLoading(false)
   })
 })
@@ -78,7 +79,7 @@ imagesCount = await ethSwap.methods.imageCount().call()
 
 console.log(imagesCount)
 // Load images
- for (var i = 1; i <= imagesCount; i++) {
+ for (var i = 0; i < imagesCount; i++) {
    const image = await ethSwap.methods.images(i).call()
    dispatch(addphoto(image))
    console.log(image)
@@ -140,9 +141,9 @@ start()
                 <button type="submit" className="btn btn-primary btn-block btn-lg">Upload!</button>
               </form>
               <p>&nbsp;</p>
-              { images.list.map((image) => {
+              { images.list.map((image,key) => {
                   return(
-                    <div className="card mb-4" key={image.id} >
+                    <div className="card mb-4" key={key} >
                       <div className="card-header">
                         <img
                           className='mr-2'
@@ -157,13 +158,13 @@ start()
                           <p className="text-center"><img src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '420px'}}/></p>
                           <p>{image.data.description}</p>
                         </li>
-                        <li key={image.id} className="list-group-item py-2">
+                        <li key={key} className="list-group-item py-2">
                           <small className="float-left mt-1 text-muted">
                             TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} ETH
                           </small>
                           <button
                             className="btn btn-link btn-sm float-right pt-0"
-                            name={image.id}
+                            name={key}
                             onClick={(event) => {
                             let tipAmount = "50"
                             console.log(event.target.name, tipAmount)
