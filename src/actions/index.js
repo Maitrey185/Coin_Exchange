@@ -43,8 +43,24 @@ export const addphoto = (data) => {
   }
 }
 
-export const reset = () => {
+export const resetp = () => {
   return{
-    type:'reset',
+    type:'resetp',
+  }
+}
+
+export const addvideo = (data) => {
+  return{
+    type:'addv',
+    payload: {
+      id: new Date().getTime().toString(),
+      data:data
+    }
+  }
+}
+
+export const resetv = () => {
+  return{
+    type:'resetv',
   }
 }

@@ -15,7 +15,7 @@ import {addphoto} from '../actions/index'
 import store from "../store"
 import Photos from './Photos'
 import {reset} from '../actions/index'
-
+import Videos from './Videos'
 
 var accounts = []
 var ethBalance = 0
@@ -50,8 +50,16 @@ function Home(){
              state: { detail: 'some_value' }
          });
 
-      
+
       };
+      const viEventHandler = event => {
+              history.push({
+               pathname: '/video',
+               state: { detail: 'some_value' }
+           });
+
+
+        };
   const dispatch = useDispatch();
 
   async function loadBlockchainData() {
@@ -150,7 +158,8 @@ function Home(){
                   ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
                   :  <div><button onClick={someEventHandler}>Click me
                     </button>
-                    <button onClick={phoEventHandler}>Photorrso</button></div>
+                    <button onClick={phoEventHandler}>Photorrso</button>
+                    <button onClick={viEventHandler}>videorrso</button></div>
                 }
                 </div>
 

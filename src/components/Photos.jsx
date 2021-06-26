@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import store from "../store"
 import {addphoto} from '../actions/index'
-import PhotoList from './PhotoList'
-import {reset} from '../actions/index'
+import {resetp} from '../actions/index'
 const  ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 function Photos(){
@@ -76,7 +75,7 @@ console.log(dis)
 
 async function start() {
   console.log("nwwwww")
-dispatch(reset())
+dispatch(resetp())
 imagesCount = await ethSwap.methods.imageCount().call()
 
 console.log(imagesCount)

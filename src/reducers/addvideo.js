@@ -2,9 +2,9 @@ const initial = {
   list: []
 };
 
-const addphoto = (state=initial, action)=>{
+const addvideo = (state=initial, action)=>{
       switch(action.type){
-        case "add":
+        case "addv":
 
           const {id, data} = action.payload
           return {
@@ -18,9 +18,9 @@ const addphoto = (state=initial, action)=>{
               }
             ]
           }
-        case "resetp": return initial
+        case "resetv": return initial
         default : return state
       }
 }
 
-export default addphoto;
+export default addvideo;

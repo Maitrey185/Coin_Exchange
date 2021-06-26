@@ -8,6 +8,7 @@ import Wallet from './Wallet.jsx'
 import Home from './Home'
 import {createStore} from 'redux'
 import Photos from './Photos'
+import Videos from './Videos'
 import {useSelector, useDispatch} from 'react-redux'
 import {addphoto} from '../actions/index'
 
@@ -21,6 +22,7 @@ function App() {
       <Route path="/" exact><Home/></Route>
       <Route path="/wallet" exact><Wallet/></Route>
       <Route path="/photo" exact><Photos/></Route>
+      <Route path="/video" exact><Videos/></Route>
       </Switch>
       </Router>
 
