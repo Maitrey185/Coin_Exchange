@@ -64,3 +64,19 @@ export const resetv = () => {
     type:'resetv',
   }
 }
+
+export const addfile = (data) => {
+  return{
+    type:'addf',
+    payload: {
+      id: new Date().getTime().toString(),
+      data:data
+    }
+  }
+}
+
+export const resetf = () => {
+  return{
+    type:'resetf',
+  }
+}

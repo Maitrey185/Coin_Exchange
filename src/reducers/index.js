@@ -5,6 +5,7 @@ import setContract from './setContract'
 import setToken from './setToken'
 import addphoto from './addphoto'
 import addvideo from './addvideo'
+import addfile from './addfile'
 import {combineReducers} from "redux";
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   contract:setContract,
   token:setToken,
   images:addphoto,
-  videos:addvideo
+  videos:addvideo,
+  files:addfile
 });
 
 export default rootReducer;

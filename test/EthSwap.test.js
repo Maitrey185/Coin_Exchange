@@ -261,151 +261,60 @@ contract('EthSwap', ([deployer, investor, random]) =>{
 
          })
 
+         describe('file', async () => {
+    let result, fileCount
+    const fileHash = 'QmV8cfu6n4NT5xRr2AHdKxFMTZEJrA44qgrBCr739BN9Wb'
+    const fileSize = '1'
+    const fileType = 'TypeOfTheFile'
+    const fileName = 'NameOfTheFile'
+    const fileDescription = 'DescriptionOfTheFile'
+
+    before(async () => {
+      result = await ethSwap.uploadFile(fileHash, fileSize, fileType, fileName, fileDescription, { from: random })
+      fileCount = await ethSwap.fileCount()
+    })
+
+    //check event
+    it('upload file', async () => {
+      // SUCESS
+      assert.equal(fileCount, 1)
+      const event = result.logs[0].args
+      assert.equal(event.fileId.toNumber(), fileCount.toNumber(), 'Id is correct')
+      assert.equal(event.fileHash, fileHash, 'Hash is correct')
+      assert.equal(event.fileSize, fileSize, 'Size is correct')
+      assert.equal(event.fileType, fileType, 'Type is correct')
+      assert.equal(event.fileName, fileName, 'Name is correct')
+      assert.equal(event.fileDescription, fileDescription, 'Description is correct')
+      assert.equal(event.uploader, random, 'Uploader is correct')
+
+      // FAILURE: File must have hash
+      await ethSwap.uploadFile('', fileSize, fileType, fileName, fileDescription, { from: random }).should.be.rejected;
+
+      // FAILURE: File must have size
+      await ethSwap.uploadFile(fileHash, '', fileType, fileName, fileDescription, { from: random }).should.be.rejected;
+
+      // FAILURE: File must have type
+      await ethSwap.uploadFile(fileHash, fileSize, '', fileName, fileDescription, { from: random }).should.be.rejected;
+
+      // FAILURE: File must have name
+      await ethSwap.uploadFile(fileHash, fileSize, fileType, '', fileDescription, { from: random }).should.be.rejected;
+
+      // FAILURE: File must have description
+      await ethSwap.uploadFile(fileHash, fileSize, fileType, fileName, '', { from: random }).should.be.rejected;
+    })
+
+    //check from Struct
+    it('lists file', async () => {
+      const file = await ethSwap.files(fileCount)
+      assert.equal(file.fileId.toNumber(), fileCount.toNumber(), 'id is correct')
+      assert.equal(file.fileHash, fileHash, 'Hash is correct')
+      assert.equal(file.fileSize, fileSize, 'Size is correct')
+      assert.equal(file.fileName, fileName, 'Size is correct')
+      assert.equal(file.fileDescription, fileDescription, 'description is correct')
+      assert.equal(file.uploader, random, 'uploader is correct')
+    })
+  })
+
 
 
 })
-
-// contract('Photos', ([deployer, author, tipper]) => {
-//   // let photos
-//   //
-//   //
-//   // before(async () => {
-//   //
-//   //   photos = await Photos.deployed()
-//   // })
-//   //
-//   // describe('deployment', async () => {
-//   //   it('deploys successfully', async () => {
-//   //     const address = await photos.address
-//   //     assert.notEqual(address, 0x0)
-//   //     assert.notEqual(address, '')
-//   //     assert.notEqual(address, null)
-//   //     assert.notEqual(address, undefined)
-//   //   })
-//   //
-//   //   it('has a name', async () => {
-//   //     const name = await photos.name()
-//   //     assert.equal(name, 'Photos')
-//   //   })
-//   // })
-//
-//   describe('images', async() => {
-//     let result, imageCount
-//     const hash = 'abc123'
-//
-//     before(async () => {
-//       result = await photos.uploadImage(hash, 'Image description', {from : author})
-//       //from = function caller
-//       imageCount = await photos.imageCount()
-//     })
-//
-//     it('creates images', async () => {
-//       assert.equal(imageCount,1)
-//       //console.log(result)
-//
-//       const event = result.logs[0].args
-//       assert.equal(event.id.toNumber(), imageCount.toNumber(), 'id is correct')
-//       assert.equal(event.hash, hash, 'Hash is correct')
-//       assert.equal(event.description, 'Image description', 'description is correct')
-//       assert.equal(event.tipAmount, '0', 'tip amount is correct')
-//       assert.equal(event.author, author, 'author is correct')
-//
-//       await photos.uploadImage('', 'Image description', {from: author}).should.be.rejected;
-//
-//       await photos.uploadImage('Image hash', '', {from: author}).should.be.rejected;
-//
-//     })
-//
-//     it('lists images', async() => {
-//       const image = await photos.images(imageCount)
-//       assert.equal(image.id.toNumber(), imageCount.toNumber(), 'id is correct')
-//       assert.equal(image.hash, hash, 'Hash is correct')
-//       assert.equal(image.description, 'Image description', 'description is correct')
-//       assert.equal(image.tipAmount, '0', 'tip amount is correct')
-//       assert.equal(image.author, author, 'author is correct')
-//     })
-//
-//     //   it('allows users to tip images', async () => {
-//     //     // Track the author balance before purchase
-//     //     let oldAuthorBalance
-//     //     oldAuthorBalance = await web3.eth.getBalance(author)
-//     //     oldAuthorBalance = new web3.utils.BN(oldAuthorBalance)
-//     //
-//     //     result = await photos.tipImageOwner(imageCount, { from: tipper, value: web3.utils.toWei('1', 'Ether') })
-//     //
-//     //     // SUCCESS
-//     //     const event = result.logs[0].args
-//     //     assert.equal(event.id.toNumber(), imageCount.toNumber(), 'id is correct')
-//     //     assert.equal(event.hash, hash, 'Hash is correct')
-//     //     assert.equal(event.description, 'Image description', 'description is correct')
-//     //     assert.equal(event.tipAmount, '1000000000000000000', 'tip amount is correct')
-//     //     assert.equal(event.author, author, 'author is correct')
-//     //
-//     //     // Check that author received funds
-//     //     let newAuthorBalance
-//     //     newAuthorBalance = await web3.eth.getBalance(author)
-//     //     newAuthorBalance = new web3.utils.BN(newAuthorBalance)
-//     //
-//     //     let tipImageOwner
-//     //     tipImageOwner = web3.utils.toWei('1', 'Ether')
-//     //     tipImageOwner = new web3.utils.BN(tipImageOwner)
-//     //
-//     //     const expectedBalance = oldAuthorBalance.add(tipImageOwner)
-//     //
-//     //     assert.equal(newAuthorBalance.toString(), expectedBalance.toString())
-//     //
-//     //     // FAILURE: Tries to tip a image that does not exist
-//     //     await photos.tipImageOwner(99, { from: tipper, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
-//     // })
-//
-//     describe('tipImageOwner()', async () => {
-//
-//
-//       let token, ethSwap
-//
-//       before(async () => {
-//         token = await Token.new()
-//         ethSwap = await EthSwap.new(token.address)
-//         await token.transfer(ethSwap.address, tokens('1000000'))
-//       })
-//
-//       let balance = await token.balanceOf(ethSwap.address)
-//       console.log(balance)
-//
-//       // before(async () => {
-//       //     // token = await Token.new()
-//       //     // ethSwap = await EthSwap.new(token.address)
-//       //
-//       //
-//       //
-//       //     await ethSwap.buyTokens({from:tipper, value: web3.utils.toWei('1', 'ether')})
-//       //
-//       //     await token.approve(ethSwap.address, tokens('500'), {from: tipper})
-//       //
-//       //     result =  await photos.tipImageOwner(1, author, {from:tipper})
-//       // })
-//       // it('contract has a name', async () =>{
-//       //   let balance = await token.balanceOf(ethSwap.address)
-//       //   assert.equal(balance.toString(),tokens('1000000'))
-//       // })
-//       // it('Allows user to instantly transfer tokens from ethSwap for a fixed price', async () =>{
-//       //
-//       //   let tipperBalance = await token.balanceOf(tipper)
-//       //   assert.equal(tipperBalance.toString(), tokens('0'))
-//       //
-//       //   let authorBalance = await token.balanceOf(author)
-//       //   assert.equal(authorBalance.toString(), tokens('500'))
-//       //
-//       //
-//       //   const event = result.logs[0].args
-//       //   assert.equal(event.account, tipper)
-//       //   assert.equal(event.token, token.address)
-//       //   assert.equal(event.amount.toString(), tokens('500').toString())
-//       //   assert.equal(event.rate.toString(), '500')
-//       //
-//       // })
-//     })
-//
-//
-//     })
-//   })
