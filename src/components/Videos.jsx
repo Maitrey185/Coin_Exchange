@@ -1,4 +1,6 @@
-
+import VideoThumbnail from 'react-video-thumbnail';
+import { ReactVideo } from "reactjs-media";
+import VideoPlayer from 'simple-react-video-thumbnail'
 import logo from '../logo.png'
 import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
@@ -104,13 +106,14 @@ start()
 
 
     return (
-      <div>
-      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <div style={{backgroundColor:"black"}}>
+      <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
         <a
           className="navbar-brand col-sm-3 col-md-2 mr-0"
           href="http://www.dappuniversity.com/bootcamp"
           target="_blank"
           rel="noopener noreferrer"
+          color="white"
         >
           <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
           &nbsp;&nbsp;DwytTube
@@ -124,29 +127,35 @@ start()
           </li>
         </ul>
       </nav>
-      <div className="container-fluid text-monospace">
+      <div className="text-monospace">
           <br></br>
           &nbsp;
           <br></br>
           <div className="row">
-            <div className="col-md-10">
-              <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '768px'}}>
+            <div className="col-md-9 padding-0">
+              <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '740px'}}>
                 <video
                   src={`https://ipfs.infura.io/ipfs/${currentHash}`}
                   controls
                 >
                 </video>
+
               </div>
-            <h3><b><i>{currentTitle}</i></b></h3>
+              <div style={{marginLeft:"10px", color:"white"}}>
+              <h4><b><i>{currentTitle}</i></b></h4>
+              </div>
           </div>
-          <div className="col-md-2 border border-danger overflow-auto text-center" style={{ maxHeight: '768px', minWidth: '175px' }}>
-            <h5><b>Share Video</b></h5>
-            <form onSubmit={(event) => {
+          <div className="padding-0 sideBar col-md-3 " style={{ maxHeight: '768px', minWidth: '180px'}}>
+          <div className="videoForm">
+          <div>
+            <h5 style={{color:"white"}}><b>Share Video</b></h5>
+            <form  onSubmit={(event) => {
               event.preventDefault()
               const tit = title
               uploadVideo(tit)
             }} >
               &nbsp;
+
               <input type='file' accept=".mp4, .mkv .ogg .wmv" onChange={captureFile} style={{ width: '250px' }} />
                 <div className="form-group mr-sm-2">
                   <input
@@ -157,28 +166,35 @@ start()
                     placeholder="Title..."
                     required />
                 </div>
-              <button type="submit" className="btn btn-danger btn-block btn-sm">Upload!</button>
+              <button type="submit" className="btn btn-danger btn-block btn-sm" style={{color:0xff343a40}}>Upload!</button>
               &nbsp;
             </form>
+            </div>
+            </div>
+            &nbsp;
             { videos.list.map((video, key) => {
               return(
-                <div className="card mb-4 text-center bg-secondary mx-auto" style={{ width: '175px'}} key={key} >
-                  <div className="card-title bg-dark">
-                    <small className="text-white"><b>{video.data.title}</b></small>
-                  </div>
-                  <div>
-                    <p onClick={() => changeVideo(video.data.hash, video.data.title)}>
-                      <video
-                        src={`https://ipfs.infura.io/ipfs/${video.data.hash}`}
-                        style={{ width: '150px' }}
+                <div className="block row" style={{ maxHeight: '160px'}} key={key} >
+                  <div className="col-7 " style={{ maxHeight: '160px'}} onClick={() => changeVideo(video.data.hash, video.data.title)}>
+
+                      <div className="vThumb">
+                      <VideoThumbnail
+
+                          videoUrl={`https://ipfs.infura.io/ipfs/${video.data.hash}`}
+                          thumbnailHandler={(thumbnail) => console.log(thumbnail)}
                       />
-                    </p>
+                    </div>
                   </div>
+                  <div className="col-5 padding-0" style={{ maxHeight: '160px'}}>
+                    <p style={{ color:"white",fontSize: '15px' }}><b>{video.data.title}</b></p>
+                  </div>
+                  <hr style={{color:"white",height:"12px"}}></hr>
                 </div>
               )
             })}
           </div>
         </div>
+
       </div>
       </div>
     );

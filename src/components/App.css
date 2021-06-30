@@ -1,1 +1,30 @@
 /* Styles go here */
+.videoForm{
+  background-color: #181818;
+  padding: 10px;
+}
+
+.sideBar{
+  border-color: #343A40;
+  margin-left: 60px;
+}
+
+.vThumb{
+
+  width:100%;
+  height:100%;
+}
+
+.padding-0{
+    padding:5px;
+    margin-left: 0px;
+    margin-left: 0px;
+}
+
+.block{
+  margin-bottom: 8px;
+}
+
+.my-nav{
+  background-color: #202020;
+}

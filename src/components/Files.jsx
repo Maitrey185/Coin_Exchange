@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import store from "../store"
 import {addfile} from '../actions/index'
 import {resetf} from '../actions/index'
+import moment from 'moment'
 const  ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 function Files(){
@@ -13,23 +14,36 @@ function Files(){
    console.log(files)
   const dispatch = useDispatch();
   const [buffer, setbuffer] = useState()
+  const [type, settype] = useState()
+  const [name, setname] = useState()
   const ethSwap = store.getState().contract
   const ac =localStorage.getItem("ac");
   const token = store.getState().token
   const [isLoading, setIsLoading] = useState(false);
 
 
-  function captureFile(event){
-   event.preventDefault()
-   const file = event.target.files[0]
-   const reader = new window.FileReader()
-   reader.readAsArrayBuffer(file)
+  function convertBytes(bytes) {
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes === 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
 
-   reader.onloadend =() => {
-     setbuffer(Buffer(reader.result))
-   }
+  function captureFile(event){
+  event.preventDefault()
+
+  const file = event.target.files[0]
+  const reader = new window.FileReader()
+
+  reader.readAsArrayBuffer(file)
+  reader.onloadend = () => {
+    setbuffer(Buffer(reader.result))
+    settype(file.type)
+    setname(file.name)
+
 
   }
+}
 
 
   function uploadFile(description) {
@@ -43,8 +57,13 @@ function Files(){
       return
     }
     setIsLoading(true)
-    ethSwap.methods.uploadImage(result[0].hash, description).send({ from: ac }).on('transactionHash', (hash) => {
+    if(type === ''){
+        settype('none')
+      }
+    ethSwap.methods.uploadFile(result[0].hash, result[0].size, type, name, description).send({ from: ac }).on('transactionHash', (hash) => {
       start()
+      settype(null)
+      setname(null)
     setIsLoading(false)
     })
   })
@@ -65,7 +84,7 @@ filesCount = await ethSwap.methods.fileCount().call()
 
 console.log(filesCount)
 // Load images
- for (var i = 1; i <= imagesCount; i++) {
+ for (var i = 1; i <= filesCount; i++) {
    const file = await ethSwap.methods.files(i).call()
    dispatch(addfile(file))
    console.log(file)
@@ -76,7 +95,7 @@ console.log(filesCount)
 useEffect(() => {
 start()
 
-},[imagesCount]);
+},[filesCount]);
 
 
 
