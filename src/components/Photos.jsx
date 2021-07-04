@@ -96,42 +96,41 @@ start()
 
 
     return (
-      <div>
-      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <div className="photos" style={{backgroundColor:"black"}}>
+      <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
         <a
           className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="http://www.dappuniversity.com/bootcamp"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp;&nbsp;Photos
+          &nbsp;&nbsp;<span style={{color:"white"}}>DwytGram</span>
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-            <small className="text-secondary">
-              <small id="account">777</small>
-            </small>
-            "hhh"
+
+            <span style={{color:"white"}} id="account">Account: </span>
+            <span style={{color:"white"}}>{ac}</span>
           </li>
         </ul>
       </nav>
       <div className="container-fluid mt-5">
-        <div className="row">
-          <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px' }}>
+        <div data-theme="dark" className="row">
+          <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
-              <h2>Share Image</h2>
+              <h2 style={{color:"white"}}>Share Image</h2>
               <form onSubmit={(event) => {
                 event.preventDefault()
                 const description = dis
                 uploadImage(description)
 
               }} >
-                <input type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={captureFile}/>
+                <input style={{color:"white"}} type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={captureFile}/>
                   <div className="form-group mr-sm-2">
                     <br></br>
                       <input
+
                         id="imageDescription"
                         type="text"
                         onChange={handleChange}
@@ -139,12 +138,13 @@ start()
                         placeholder="Image description..."
                         required />
                   </div>
-                <button type="submit" className="btn btn-primary btn-block btn-lg">Upload!</button>
+                <button type="submit" className="btn btn-dark btn-block btn-lg">Upload!</button>
               </form>
               <p>&nbsp;</p>
               { images.list.map((image,key) => {
                   return(
-                    <div className="card mb-4" key={image.id} >
+                    <div className="card mb-4" style={{ maxHeight: '700px', maxWidth:'600px' }} key={image.id} >
+                    <div >
                       <div className="card-header">
                         <img
                           className='mr-2'
@@ -152,27 +152,29 @@ start()
                           height='30'
 
                         />
-                        <small className="text-muted">{image.data.author}</small>
+                        <span style={{color:"white", fontSize:"13px"}}>{image.data.author}</span>
+                      </div>
                       </div>
                       <ul id="imageList" className="list-group list-group-flush">
-                        <li className="list-group-item">
-                          <p className="text-center"><img src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '420px'}}/></p>
-                          <p>{image.data.description}</p>
+                        <li className="list-group-item l1">
+                          <p className="text-center"><img src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '460px'}}/></p>
+                          <p style={{color:"white"}}>{image.data.description}</p>
                         </li>
-                        <li key={image.id} className="list-group-item py-2">
-                          <small className="float-left mt-1 text-muted">
+                        <li key={image.id} className="list-group-item l2 py-2">
+                          <p style={{color:"white", fontSize:"13px"}} className="float-left mt-1">
                             TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} ETH
-                          </small>
+                          </p>
                           <button
                             className="btn btn-link btn-sm float-right pt-0"
                             name={key}
+                            style={{color:"white"}}
                             onClick={(event) => {
                             let tipAmount = "50"
                             console.log(event.target.name, tipAmount)
                             tipImageOwner(event.target.name, window.web3.utils.toWei(tipAmount, 'Ether'))
                          }}
                           >
-                            TIP 0.1 ETH
+                            TIP 10 DWYT
                           </button>
                         </li>
                       </ul>

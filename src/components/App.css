@@ -1,6 +1,9 @@
 /* Styles go here */
+:root{
+  background-color: black;
+}
 .videoForm{
-  background-color: #181818;
+
   padding: 10px;
 }
 
@@ -27,4 +30,23 @@
 
 .my-nav{
   background-color: #202020;
+}
+
+.photos{
+  text-decoration-color: white;
+}
+
+.l1{
+  background-color: #202020;
+}
+
+.l2{
+  background-color: #49505C;
+}
+
+.card-header{
+  background-color: #49505C;
+}
+.card{
+  border: none;
 }
