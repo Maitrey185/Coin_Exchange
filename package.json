@@ -17,6 +17,7 @@
     "chai-bignumber": "3.0.0",
     "gh-pages": "^3.2.2",
     "identicon": "^3.0.1",
+    "identicon.js": "^2.3.3",
     "ipfs-http-client": "^33.1.1",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",

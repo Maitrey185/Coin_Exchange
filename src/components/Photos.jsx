@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import store from "../store"
 import {addphoto} from '../actions/index'
+import Identicon from 'identicon.js';
 import {resetp} from '../actions/index'
 const  ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
@@ -61,6 +62,7 @@ async function tipImageOwner(id, tipAmount) {
   await token.methods.approve(ethSwap.address, tipAmount).send({ from: ac }).on('transactionHash', async(hash) => {
   await ethSwap.methods.tipImageOwner(id, tipAmount).send({ from: ac}).on('transactionHash', (hash) => {
     console.log(hash)
+    start()
   setIsLoading(false)
   })
 })
@@ -150,7 +152,7 @@ start()
                           className='mr-2'
                           width='30'
                           height='30'
-
+                          src={`data:image/png;base64,${new Identicon(image.data.author, 30).toString()}`}
                         />
                         <span style={{color:"white", fontSize:"13px"}}>{image.data.author}</span>
                       </div>

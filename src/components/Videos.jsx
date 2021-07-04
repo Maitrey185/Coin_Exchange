@@ -110,20 +110,17 @@ start()
       <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
         <a
           className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="http://www.dappuniversity.com/bootcamp"
           target="_blank"
           rel="noopener noreferrer"
-          color="white"
         >
           <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp;&nbsp;DwytTube
+          &nbsp;&nbsp;<span style={{color:"white"}}>DwytTube</span>
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-            <small className="text-secondary">
-              <small id="account">Account: </small>
-            </small>
-            {ac}
+
+            <span style={{color:"white"}} id="account">Account: </span>
+            <span style={{color:"white"}}>{ac}</span>
           </li>
         </ul>
       </nav>
@@ -133,7 +130,7 @@ start()
           <br></br>
           <div className="row">
             <div className="col-md-9 padding-0">
-              <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '740px'}}>
+              <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '800px'}}>
                 <video
                   src={`https://ipfs.infura.io/ipfs/${currentHash}`}
                   controls
@@ -145,7 +142,7 @@ start()
               <h4><b><i>{currentTitle}</i></b></h4>
               </div>
           </div>
-          <div className="padding-0 sideBar col-md-3 " style={{ maxHeight: '768px', minWidth: '180px'}}>
+          <div className="padding-0 sideBar col-md-3" style={{ maxHeight: '768px', minWidth: '180px'}}>
           <div className="videoForm">
           <div>
             <h5 style={{color:"white"}}><b>Share Video</b></h5>
@@ -154,19 +151,22 @@ start()
               const tit = title
               uploadVideo(tit)
             }} >
-              &nbsp;
 
-              <input type='file' accept=".mp4, .mkv .ogg .wmv" onChange={captureFile} style={{ width: '250px' }} />
+
+
+              <input style={{color:"white"}} type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={captureFile}/>
                 <div className="form-group mr-sm-2">
-                  <input
-                    id="videoTitle"
-                    type="text"
-                    onChange={handleChange}
-                    className="form-control-sm"
-                    placeholder="Title..."
-                    required />
+                  <br></br>
+                    <input
+
+                      id="videoTitle"
+                      type="text"
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Title..."
+                      required />
                 </div>
-              <button type="submit" className="btn btn-danger btn-block btn-sm" style={{color:0xff343a40}}>Upload!</button>
+              <button type="submit" className="btn btn-dark btn-block btn-lg">Upload!</button>
               &nbsp;
             </form>
             </div>
