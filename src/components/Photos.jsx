@@ -98,7 +98,7 @@ start()
 
 
     return (
-      <div className="photos" style={{backgroundColor:"black"}}>
+      <div className="photos" style={{backgroundColor:"#090C10"}}>
       <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
         <a
           className="navbar-brand col-sm-3 col-md-2 mr-0"

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import './App.css';
 import  Web3 from 'web3';
 import Token from '../abis/Token.json'
@@ -150,7 +151,7 @@ function Home(){
               Dapp University
             </a>
           </nav>
-          <div className="container-fluid mt-5">
+          <div className="container-fluid mt-5" style={{backgroundColor:"#090C10"}}>
             <div className="row">
               <main role="main" className="col-lg-12 d-flex text-center">
                 <div className="content mr-auto ml-auto">
@@ -165,7 +166,77 @@ function Home(){
                   <h1>{ac}</h1>
                 {isLoading
                   ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
-                  :  <div><button onClick={someEventHandler}>Click me
+                  :  <div>
+                  <div className="row">
+                  <Flippy
+                    className='col'
+                    flipOnHover={true} // default false
+                    flipOnClick={false} // default false
+                    flipDirection="horizontal" // horizontal or vertical
+                    //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
+                    // if you pass isFlipped prop component will be controlled component.
+                    // and other props, which will go to div
+                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                  >
+                    <FrontSide
+                      style={{
+                        backgroundColor: '#41669d',
+                      }}
+                    >
+                      RICK
+                    </FrontSide>
+                    <BackSide
+                      style={{ backgroundColor: '#175852'}}>
+                      ROCKS
+                    </BackSide>
+                  </Flippy>
+                  <Flippy
+                  className='col'
+                    onClick={someEventHandler}
+                    flipOnHover={true} // default false
+                    flipOnClick={false} // default false
+                    flipDirection="horizontal" // horizontal or vertical
+                    //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
+                    // if you pass isFlipped prop component will be controlled component.
+                    // and other props, which will go to div
+                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                  >
+                    <FrontSide
+                      style={{
+                        backgroundColor: '#41669d',
+                      }}
+                    >
+                      RICK
+                    </FrontSide>
+                    <BackSide
+                      style={{ backgroundColor: '#175852'}}>
+                      ROCKS
+                    </BackSide>
+                  </Flippy>
+                  <Flippy
+                  className='col'
+                    flipOnHover={true} // default false
+                    flipOnClick={false} // default false
+                    flipDirection="horizontal" // horizontal or vertical
+                    //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
+                    // if you pass isFlipped prop component will be controlled component.
+                    // and other props, which will go to div
+                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                  >
+                    <FrontSide
+                      style={{
+                        backgroundColor: '#41669d',
+                      }}
+                    >
+                      RICK
+                    </FrontSide>
+                    <BackSide
+                      style={{ backgroundColor: '#175852'}}>
+                      ROCKS
+                    </BackSide>
+                  </Flippy>
+                  </div>
+                    <button onClick={someEventHandler}>Click me
                     </button>
                     <button onClick={phoEventHandler}>Photorrso</button>
                     <button onClick={viEventHandler}>videorrso</button>

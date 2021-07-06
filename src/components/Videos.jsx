@@ -154,7 +154,7 @@ start()
 
 
 
-              <input style={{color:"white"}} type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={captureFile}/>
+              <input style={{color:"white"}} type='file' accept=".mp4, .mkv .ogg .wmv" onChange={captureFile}/>
                 <div className="form-group mr-sm-2">
                   <br></br>
                     <input
