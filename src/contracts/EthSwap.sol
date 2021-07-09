@@ -230,31 +230,4 @@ function tipImageOwner(uint _id, uint _amount) public payable{
   }
 
 
-
-  //DeFi
-  address[] public stakers;
-    mapping(address => uint) public stakingBalance;
-    mapping(address => bool) public hasStaked;
-    mapping(address => bool) public isStaking;
-
-
-  function stakeTokens() public payable{
-        // Require amount greater than 0
-        uint _amount = msg.value;
-        require(_amount > 0, "amount cannot be 0");
-
-        // Update staking balance
-        stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
-
-        // Add user to stakers array *only* if they haven't staked already
-        if(!hasStaked[msg.sender]) {
-            stakers.push(msg.sender);
-        }
-
-        // Update staking status
-        isStaking[msg.sender] = true;
-        hasStaked[msg.sender] = true;
-    }
-
-
 }

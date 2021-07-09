@@ -6,13 +6,15 @@ import store from "../store"
 import {addphoto} from '../actions/index'
 import Identicon from 'identicon.js';
 import {resetp} from '../actions/index'
+import like from '../pngegg.png'
 const  ipfsClient = require('ipfs-http-client')
+
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 function Photos(){
   var imagesCount=0
   const images = useSelector((state)=> state.images)
 
-   console.log(images)
+   console.log(typeof(images))
   const dispatch = useDispatch();
   const [buffer, setbuffer] = useState()
   const ethSwap = store.getState().contract
@@ -163,21 +165,17 @@ start()
                           <p style={{color:"white"}}>{image.data.description}</p>
                         </li>
                         <li key={image.id} className="list-group-item l2 py-2">
-                          <p style={{color:"white", fontSize:"13px"}} className="float-left mt-1">
+                          <p style={{color:"white", fontSize:"13px"}} className="float-left mt-1 mb-1">
                             TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} ETH
                           </p>
-                          <button
-                            className="btn btn-link btn-sm float-right pt-0"
-                            name={key}
-                            style={{color:"white"}}
-                            onClick={(event) => {
-                            let tipAmount = "50"
-                            console.log(event.target.name, tipAmount)
-                            tipImageOwner(event.target.name, window.web3.utils.toWei(tipAmount, 'Ether'))
-                         }}
-                          >
-                            TIP 10 DWYT
-                          </button>
+
+
+                          <img src={like} style={{width:"30px",height:"30px"}} class="rounded float-right" alt="..."
+                          onClick={(event) => {
+                          let tipAmount = "50"
+                          console.log(event.target.name, tipAmount)
+                          tipImageOwner(event.target.name, window.web3.utils.toWei(tipAmount, 'Ether'))
+                       }}></img>
                         </li>
                       </ul>
                     </div>

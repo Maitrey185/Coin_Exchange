@@ -3,6 +3,7 @@ import { ReactVideo } from "reactjs-media";
 import VideoPlayer from 'simple-react-video-thumbnail'
 import logo from '../logo.png'
 import React, { useState, useEffect } from 'react';
+import like from '../like.png'
 import {useSelector, useDispatch} from 'react-redux'
 import store from "../store"
 import {addvideo} from '../actions/index'
@@ -139,7 +140,18 @@ start()
 
               </div>
               <div style={{marginLeft:"10px", color:"white"}}>
-              <h4><b><i>{currentTitle}</i></b></h4>
+              <h4 className="rounded float-left"><b><i>{currentTitle}</i></b></h4>
+              <div className="rounded float-right mr-5 ">
+              <img src={like} style={{width:"30px",height:"30px"}} className="rounded float-right mr-5 " alt="..."
+              onClick={(event) => {
+              let tipAmount = "50"
+              console.log(event.target.name, tipAmount)
+              tipVideoOwner(event.target.name, window.web3.utils.toWei(tipAmount, 'Ether'))
+           }}></img>
+           <div className="rounded float-left mr-3 mb-0">
+           <h5 className="mt-2">Tip</h5>
+           </div>
+              </div>
               </div>
           </div>
           <div className="padding-0 sideBar col-md-3" style={{ maxHeight: '768px', minWidth: '180px'}}>
@@ -187,6 +199,7 @@ start()
                   </div>
                   <div className="col-5 padding-0" style={{ maxHeight: '160px'}}>
                     <p style={{ color:"white",fontSize: '15px' }}><b>{video.data.title}</b></p>
+
                   </div>
                   <hr style={{color:"white",height:"12px"}}></hr>
                 </div>

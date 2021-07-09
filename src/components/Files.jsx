@@ -11,10 +11,10 @@ function Files(){
   var filesCount=0
   const files = useSelector((state)=> state.files)
 
-   console.log(files)
+   console.log(typeof(files))
   const dispatch = useDispatch();
   const [buffer, setbuffer] = useState()
-  const [type, settype] = useState()
+  const [type, settype] = useState("")
   const [name, setname] = useState()
   const ethSwap = store.getState().contract
   const ac =localStorage.getItem("ac");
@@ -57,9 +57,14 @@ function Files(){
       return
     }
     setIsLoading(true)
-    if(type === ''){
+    if(type === null){
         settype('none')
       }
+      console.log(result[0].hash)
+      console.log(result[0].size)
+      console.log(type)
+      console.log(name)
+      console.log(description)
     ethSwap.methods.uploadFile(result[0].hash, result[0].size, type, name, description).send({ from: ac }).on('transactionHash', (hash) => {
       start()
       settype(null)
@@ -86,8 +91,9 @@ console.log(filesCount)
 // Load images
  for (var i = 1; i <= filesCount; i++) {
    const file = await ethSwap.methods.files(i).call()
-   dispatch(addfile(file))
    console.log(file)
+   dispatch(addfile(file))
+
  }
 }
 
@@ -162,32 +168,9 @@ start()
                </thead>
                { files.list.map((file, key) => {
                  return(
-                   <thead style={{ 'fontSize': '12px' }} key={key}>
-                     <tr>
-                       <td>{file.data.fileId}</td>
-                       <td>{file.data.fileName}</td>
-                       <td>{file.data.fileDescription}</td>
-                       <td>{file.data.fileType}</td>
-                       <td>{convertBytes(file.data.fileSize)}</td>
-                       <td>{moment.unix(file.data.uploadTime).format('h:mm:ss A M/D/Y')}</td>
-                       <td>
-                         <a
-                           href={"https://etherscan.io/address/" + file.data.uploader}
-                           rel="noopener noreferrer"
-                           target="_blank">
-                           {file.data.uploader.substring(0,10)}...
-                         </a>
-                        </td>
-                       <td>
-                         <a
-                           href={"https://ipfs.infura.io/ipfs/" + file.data.fileHash}
-                           rel="noopener noreferrer"
-                           target="_blank">
-                           {file.data.fileHash.substring(0,10)}...
-                         </a>
-                       </td>
-                     </tr>
-                   </thead>
+                   <div style={{ 'fontSize': '12px' }} key={file.id}>
+                    mm
+                   </div>
                  )
                })}
              </table>
