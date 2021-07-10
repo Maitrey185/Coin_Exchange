@@ -5,6 +5,9 @@ import store from "../store"
 import {addfile} from '../actions/index'
 import {resetf} from '../actions/index'
 import moment from 'moment'
+import {FilePreviewerThumbnail} from 'react-file-previewer';
+
+import Dropzone from 'react-dropzone'
 const  ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 function Files(){
@@ -126,7 +129,7 @@ start()
           </li>
         </ul>
       </nav>
-      <div className="container-fluid mt-5 text-center">
+      <div className="container-fluid mt-5 text-center " style={{backgroundColor:"#090C10"}}>
        <div className="row">
          <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '1024px' }}>
            <div className="content">
@@ -151,6 +154,16 @@ start()
                    <input type="file" onChange={captureFile} className="text-white text-monospace"/>
                    <button type="submit" className="btn-primary btn-block"><b>Upload!</b></button>
                  </form>
+                 <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                  {({getRootProps, getInputProps}) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
              </div>
              <p>&nbsp;</p>
              <table className="table-sm table-bordered text-monospace" style={{ width: '1000px', maxHeight: '450px'}}>
@@ -163,14 +176,41 @@ start()
                    <th scope="col" style={{ width: '90px'}}>size</th>
                    <th scope="col" style={{ width: '90px'}}>date</th>
                    <th scope="col" style={{ width: '120px'}}>uploader/view</th>
-                   <th scope="col" style={{ width: '120px'}}>hash/view/get</th>
+                   <th scope="col" style={{ width: '120px'}}>Download</th>
                  </tr>
                </thead>
                { files.list.map((file, key) => {
+                 var url = "https://ipfs.infura.io/ipfs/" + file.data.fileHash;
                  return(
-                   <div style={{ 'fontSize': '12px' }} key={file.id}>
-                    mm
-                   </div>
+
+                   <thead style={{ 'fontSize': '12px' }} key={file.id}>
+                             <tr className="bg-dark text-white">
+                        <td>{key}</td>
+                        <td>
+
+                        {file.data.fileName}</td>
+                        <td>{file.data.fileDescription}</td>
+                        <td>{file.data.fileType}</td>
+                        <td>{convertBytes(file.data.fileSize._hex)}</td>
+                        <td>{moment.unix(file.data.uploadTime._hex).format('h:mm:ss A M/D/Y')}</td>
+                        <td>
+                          <a
+                            href={url}
+                            rel="noopener noreferrer"
+                            target="_blank">
+                            {file.data.uploader.substring(0,10)}...
+                          </a>
+                         </td>
+                        <td>
+                          <a
+                            href={"https://ipfs.infura.io/ipfs/" + file.data.fileHash}
+                            rel="noopener noreferrer"
+                            target="_blank">
+                            {file.data.fileHash.substring(0,10)}...
+                          </a>
+                        </td>
+                      </tr>
+                    </thead>
                  )
                })}
              </table>

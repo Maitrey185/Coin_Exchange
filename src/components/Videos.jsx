@@ -139,7 +139,7 @@ start()
                 </video>
 
               </div>
-              <div style={{marginLeft:"10px", color:"white"}}>
+              <div style={{paddingLeft:"10px", marginLeft:"10px", color:"white"}}>
               <h4 className="rounded float-left"><b><i>{currentTitle}</i></b></h4>
               <div className="rounded float-right mr-5 ">
               <img src={like} style={{width:"30px",height:"30px"}} className="rounded float-right mr-5 " alt="..."
