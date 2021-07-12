@@ -1,10 +1,12 @@
 import logo from '../logo.png'
-import React, { useState, useEffect } from 'react';
+import React, {useMemo, useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import store from "../store"
 import {addfile} from '../actions/index'
 import {resetf} from '../actions/index'
 import moment from 'moment'
+import {useDropzone} from 'react-dropzone';
+
 import {FilePreviewerThumbnail} from 'react-file-previewer';
 
 import Dropzone from 'react-dropzone'
@@ -37,7 +39,7 @@ function Files(){
 
   const file = event.target.files[0]
   const reader = new window.FileReader()
-
+console.log(file)
   reader.readAsArrayBuffer(file)
   reader.onloadend = () => {
     setbuffer(Buffer(reader.result))
@@ -76,6 +78,76 @@ function Files(){
     })
   })
 
+}
+
+const baseStyle = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '20px',
+  borderWidth: 2,
+  borderRadius: 2,
+  borderColor: '#eeeeee',
+  borderStyle: 'dashed',
+  backgroundColor: '#fafafa',
+  color: '#bdbdbd',
+  outline: 'none',
+  transition: 'border .24s ease-in-out'
+};
+
+const activeStyle = {
+  borderColor: '#2196f3'
+};
+
+const acceptStyle = {
+  borderColor: '#00e676'
+};
+
+const rejectStyle = {
+  borderColor: '#ff1744'
+};
+
+function StyledDropzone(props) {
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+    acceptedFiles
+  } = useDropzone();
+
+  const style = useMemo(() => ({
+    ...baseStyle,
+    ...(isDragActive ? activeStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {})
+  }), [
+    isDragActive,
+    isDragReject,
+    isDragAccept
+  ]);
+
+
+ const files = acceptedFiles.map(file => (
+   <li key={file.path}>
+     {file.path} - {file.size} bytes
+   </li>
+ ));
+console.log(acceptedFiles)
+ return (
+   <section className="container">
+     <div {...getRootProps({style})}>
+       <input {...getInputProps()} />
+       <p>Drag 'n' drop some files here, or click to select files</p>
+     </div>
+     <aside>
+       <h4>Files</h4>
+       <ul>{files}</ul>
+     </aside>
+   </section>
+ );
 }
 
 const [dis, setdis] = useState("")
@@ -154,16 +226,7 @@ start()
                    <input type="file" onChange={captureFile} className="text-white text-monospace"/>
                    <button type="submit" className="btn-primary btn-block"><b>Upload!</b></button>
                  </form>
-                 <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-                  {({getRootProps, getInputProps}) => (
-                    <section>
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <p>Drag 'n' drop some files here, or click to select files</p>
-                      </div>
-                    </section>
-                  )}
-                </Dropzone>
+                 <StyledDropzone/>
              </div>
              <p>&nbsp;</p>
              <table className="table-sm table-bordered text-monospace" style={{ width: '1000px', maxHeight: '450px'}}>

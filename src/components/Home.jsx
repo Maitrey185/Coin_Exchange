@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import './App.css';
 import  Web3 from 'web3';
+import logo from '../logo.png'
 import Token from '../abis/Token.json'
 import EthSwap from '../abis/EthSwap.json'
 import { BrowserRouter as Router, Route, Link, useHistory} from "react-router-dom";
@@ -139,34 +140,64 @@ function Home(){
 
       return (
 
+        <div style={{backgroundColor:"black"}}>
+        <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
+          <a
+            className="navbar-brand col-sm-3 col-md-2 mr-0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
+            &nbsp;&nbsp;<span style={{color:"white"}}>EthMedia</span>
+          </a>
+          <ul className="navbar-nav px-3">
+            <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
 
-        <div>
-          <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a
-              className="navbar-brand col-sm-3 col-md-2 mr-0"
-              href="http://www.dappuniversity.com/bootcamp"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Dapp University
-            </a>
-          </nav>
+              <span style={{color:"white"}} id="account">Account: </span>
+              {isLoading
+                ? <div class="spinner-grow text-light" style={{width: "2rem", height: "2rem"}} role="status"><span class="sr-only">Loading...</span></div>
+                : <span style={{color:"white"}}>{ac}</span>
+              }
+
+            </li>
+          </ul>
+        </nav>
           <div className="container-fluid mt-5" style={{backgroundColor:"#090C10"}}>
             <div className="row">
               <main role="main" className="col-lg-12 d-flex text-center">
-                <div className="content mr-auto ml-auto">
-                  <a
-                    href="http://www.dappuniversity.com/bootcamp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                <h1 className="row m-auto">EthMedia</h1>
+                <div className="row mr-auto ml-auto" style={{marginTop:"200px"}}>
 
-                  </a>
-
-                  <h1>{ac}</h1>
                 {isLoading
-                  ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
+                  ? <div class="spinner-border mt-4 text-light" style={{width: "3rem", height: "3rem"}} role="status"><span class="sr-only">Loading...</span></div>
                   :  <div>
+                  <div>
+                  <div className="row mb-4">
+                  <div className="m-auto" style={{ width: "33%", height: '200px' }}>
+                  <Flippy
+                    className='col'
+                    flipOnHover={true} // default false
+                    flipOnClick={false} // default false
+                    flipDirection="horizontal" // horizontal or vertical
+                    //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
+                    // if you pass isFlipped prop component will be controlled component.
+                    // and other props, which will go to div
+                    style={{ height: '200px' }} /// these are optional style, it is not necessary
+                  >
+                    <FrontSide
+                      style={{
+                        backgroundColor: '#41669d',
+                      }}
+                    >
+                      RICK
+                    </FrontSide>
+                    <BackSide
+                      style={{ backgroundColor: '#175852'}}>
+                      ROCKS
+                    </BackSide>
+                  </Flippy>
+                  </div>
+                  </div>
                   <div className="row">
                   <Flippy
                     className='col'
@@ -176,7 +207,7 @@ function Home(){
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                    style={{ width: '260px', height: '200px' }} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
@@ -235,6 +266,7 @@ function Home(){
                       ROCKS
                     </BackSide>
                   </Flippy>
+                  </div>
                   </div>
                     <button onClick={someEventHandler}>Click me
                     </button>
