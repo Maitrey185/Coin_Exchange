@@ -140,7 +140,7 @@ function Home(){
 
       return (
 
-        <div style={{backgroundColor:"black"}}>
+        <div style={{backgroundColor:"#090C10"}}>
         <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
           <a
             className="navbar-brand col-sm-3 col-md-2 mr-0"
@@ -162,52 +162,58 @@ function Home(){
             </li>
           </ul>
         </nav>
-          <div className="container-fluid mt-5" style={{backgroundColor:"#090C10"}}>
-            <div className="row">
-              <main role="main" className="col-lg-12 d-flex text-center">
-                <h1 className="row m-auto">EthMedia</h1>
-                <div className="row mr-auto ml-auto" style={{marginTop:"200px"}}>
+        <br/>
+        <br/>
+        <br/>
+
+        <br/>
+          <div className="container-fluid text-center" style={{width:"70%"}}>
+
+              <div className="text-center">
+                <h1 className="ml-auto mr-auto" style={{color:"white"}}>EthMedia</h1>
+              </div>
+                <br/>
+                <div className="mr-auto ml-auto">
 
                 {isLoading
                   ? <div class="spinner-border mt-4 text-light" style={{width: "3rem", height: "3rem"}} role="status"><span class="sr-only">Loading...</span></div>
                   :  <div>
-                  <div>
-                  <div className="row mb-4">
-                  <div className="m-auto" style={{ width: "33%", height: '200px' }}>
-                  <Flippy
-                    className='col'
-                    flipOnHover={true} // default false
-                    flipOnClick={false} // default false
-                    flipDirection="horizontal" // horizontal or vertical
-                    //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
-                    // if you pass isFlipped prop component will be controlled component.
-                    // and other props, which will go to div
-                    style={{ height: '200px' }} /// these are optional style, it is not necessary
-                  >
-                    <FrontSide
-                      style={{
-                        backgroundColor: '#41669d',
-                      }}
-                    >
-                      RICK
-                    </FrontSide>
-                    <BackSide
-                      style={{ backgroundColor: '#175852'}}>
-                      ROCKS
-                    </BackSide>
-                  </Flippy>
-                  </div>
-                  </div>
                   <div className="row">
                   <Flippy
-                    className='col'
+                    className='col-md-3 col-sm-6 mr-auto ml-auto'
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{ width: '260px', height: '200px' }} /// these are optional style, it is not necessary
+                     /// these are optional style, it is not necessary
+                     style={{height:'200px'}}
+                  >
+                    <FrontSide
+                      style={{
+                        backgroundColor: '#41669d',
+                      }}
+                    >
+                      RICK
+                    </FrontSide>
+                    <BackSide
+                      style={{ backgroundColor: '#175852'}}>
+                      ROCKS
+                    </BackSide>
+                  </Flippy>
+                  </div>
+
+                  <div className="row" >
+                  <Flippy
+                    className='col-md-3 col-sm-6 mr-auto ml-auto'
+                    flipOnHover={true} // default false
+                    flipOnClick={false} // default false
+                    flipDirection="horizontal" // horizontal or vertical
+                    //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
+                    // if you pass isFlipped prop component will be controlled component.
+                    // and other props, which will go to div
+                    style={{height:'200px',marginTop: "20px"}} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
@@ -222,7 +228,7 @@ function Home(){
                     </BackSide>
                   </Flippy>
                   <Flippy
-                  className='col'
+                  className='col-md-3 col-sm-6 mr-auto ml-auto'
                     onClick={someEventHandler}
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
@@ -230,7 +236,7 @@ function Home(){
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                    style={{height:'200px',marginTop: "20px"}} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
@@ -245,14 +251,14 @@ function Home(){
                     </BackSide>
                   </Flippy>
                   <Flippy
-                  className='col'
+                  className='col-md-3 col-sm-6 mr-auto ml-auto'
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{ width: '200px', height: '200px' }} /// these are optional style, it is not necessary
+                    style={{height:'200px',marginTop: "20px"}} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
@@ -267,7 +273,7 @@ function Home(){
                     </BackSide>
                   </Flippy>
                   </div>
-                  </div>
+
                     <button onClick={someEventHandler}>Click me
                     </button>
                     <button onClick={phoEventHandler}>Photorrso</button>
@@ -276,8 +282,8 @@ function Home(){
                 }
                 </div>
 
-              </main>
-            </div>
+
+
           </div>
         </div>
       );

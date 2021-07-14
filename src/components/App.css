@@ -1,7 +1,15 @@
 /* Styles go here */
 :root{
   background-color: #090C10;
+  height: 100%
 }
+
+
+body, #root{
+  height: 100%;
+  background-color: #090C10;
+}
+
 .videoForm{
 
   padding: 10px;
