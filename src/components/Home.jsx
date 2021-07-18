@@ -3,6 +3,12 @@ import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import './App.css';
 import  Web3 from 'web3';
 import logo from '../logo.png'
+import wallet from '../wallet-vector.jpg'
+import gram from '../gram.jpg'
+import box1 from '../box1.jpg'
+import bg from '../bg.jpg'
+import box2 from '../box2.jpg'
+import tube from '../tube.jpg'
 import Token from '../abis/Token.json'
 import EthSwap from '../abis/EthSwap.json'
 import { BrowserRouter as Router, Route, Link, useHistory} from "react-router-dom";
@@ -140,7 +146,11 @@ function Home(){
 
       return (
 
-        <div style={{backgroundColor:"#090C10"}}>
+        <div style={{backgroundImage :`url(${bg})`,backgroundPosition: 'center',
+backgroundSize: 'cover',
+backgroundRepeat: 'no-repeat',
+width: '100%',
+height: '100%'}}>
         <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
           <a
             className="navbar-brand col-sm-3 col-md-2 mr-0"
@@ -180,7 +190,7 @@ function Home(){
                   :  <div>
                   <div className="row">
                   <Flippy
-                    className='col-md-3 col-sm-6 mr-auto ml-auto'
+                    className='col-lg-3 col-sm-6 mr-auto ml-auto'
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
@@ -188,47 +198,71 @@ function Home(){
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
                      /// these are optional style, it is not necessary
-                     style={{height:'200px'}}
+                     style={{ height:'240px'}}
                   >
                     <FrontSide
                       style={{
-                        backgroundColor: '#41669d',
+                        paddingTop:"1px",
+                        fontWeight: "bold",
+                        fontSize: "150%",
+                        textAlign:"center",
+                        backgroundImage :`url(${wallet})`,backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '100%'
                       }}
                     >
-                      RICK
+                      Wallet
                     </FrontSide>
                     <BackSide
-                      style={{ backgroundColor: '#175852'}}>
-                      ROCKS
+                      style={{backgroundColor:"#ffffff",
+                      paddingTop:"1px",
+                      fontWeight: "bold",
+                      fontSize: "150%",
+                      textAlign:"center",}}>
+                      Wallet
                     </BackSide>
                   </Flippy>
                   </div>
 
                   <div className="row" >
                   <Flippy
-                    className='col-md-3 col-sm-6 mr-auto ml-auto'
+                    className='col-lg-3 col-sm-6 mr-auto ml-auto'
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{height:'200px',marginTop: "20px"}} /// these are optional style, it is not necessary
+                    style={{height:'240px',marginTop: "20px"}} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
-                        backgroundColor: '#41669d',
+                        paddingTop:"1px",
+                        fontWeight: "bold",
+                        fontSize: "150%",
+                        textAlign:"center",
+                        backgroundImage :`url(${gram})`,backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '100%'
                       }}
                     >
-                      RICK
+                      WoltGram
                     </FrontSide>
                     <BackSide
-                      style={{ backgroundColor: '#175852'}}>
-                      ROCKS
+                      style={{backgroundColor:"#ffffff",
+                      paddingTop:"1px",
+                      fontWeight: "bold",
+                      fontSize: "150%",
+                      textAlign:"center",}}>
+                      WoltGram
                     </BackSide>
                   </Flippy>
                   <Flippy
-                  className='col-md-3 col-sm-6 mr-auto ml-auto'
+                  className='col-lg-3 col-sm-6 mr-auto ml-auto'
                     onClick={someEventHandler}
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
@@ -236,40 +270,64 @@ function Home(){
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{height:'200px',marginTop: "20px"}} /// these are optional style, it is not necessary
+                    style={{height:'240px',marginTop: "20px"}} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
-                        backgroundColor: '#41669d',
+                        paddingTop:"1px",
+                        fontWeight: "bold",
+                        fontSize: "150%",
+                        textAlign:"center",
+                        backgroundImage :`url(${tube})`,backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '100%h'
                       }}
                     >
-                      RICK
+                      WoltTube
                     </FrontSide>
                     <BackSide
-                      style={{ backgroundColor: '#175852'}}>
-                      ROCKS
+                      style={{backgroundColor:"#ffffff",
+                      paddingTop:"1px",
+                      fontWeight: "bold",
+                      fontSize: "150%",
+                      textAlign:"center",}}>
+                      WoltTube
                     </BackSide>
                   </Flippy>
                   <Flippy
-                  className='col-md-3 col-sm-6 mr-auto ml-auto'
+                  className='col-lg-3 col-sm-6 mr-auto ml-auto'
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
                     //ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
                     // if you pass isFlipped prop component will be controlled component.
                     // and other props, which will go to div
-                    style={{height:'200px',marginTop: "20px"}} /// these are optional style, it is not necessary
+                    style={{height:'240px',marginTop: "20px"}} /// these are optional style, it is not necessary
                   >
                     <FrontSide
                       style={{
-                        backgroundColor: '#41669d',
+                        paddingTop:"1px",
+                        fontWeight: "bold",
+                        fontSize: "150%",
+                        padding: "auto",
+                        backgroundImage :`url(${box1})`,backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '100%h'
                       }}
                     >
-                      RICK
+                      WoltBox
                     </FrontSide>
                     <BackSide
-                      style={{ backgroundColor: '#175852'}}>
-                      ROCKS
+                      style={{backgroundColor:"#ffffff",
+                      paddingTop:"1px",
+                      fontWeight: "bold",
+                      fontSize: "150%",
+                      textAlign:"center",}}>
+                      WoltBox
                     </BackSide>
                   </Flippy>
                   </div>

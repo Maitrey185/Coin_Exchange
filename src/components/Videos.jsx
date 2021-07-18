@@ -8,6 +8,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import store from "../store"
 import {addvideo} from '../actions/index'
 import {resetv} from '../actions/index'
+import ReactPlayer from 'react-player'
+
 const  ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 function Videos(){
@@ -132,6 +134,7 @@ start()
           <div className="row">
             <div className="col-md-9 padding-0">
               <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '800px'}}>
+
                 <video
                   src={`https://ipfs.infura.io/ipfs/${currentHash}`}
                   controls
@@ -141,17 +144,19 @@ start()
               </div>
               <div style={{paddingLeft:"10px", marginLeft:"10px", color:"white"}}>
               <h4 className="rounded float-left"><b><i>{currentTitle}</i></b></h4>
-              <div className="rounded float-right mr-5 ">
-              <img src={like} style={{width:"30px",height:"30px"}} className="rounded float-right mr-5 " alt="..."
+              <div className="float-right row" style={{width:"100px"}}>
+              <span className="col-6 pr-0 pl-0" style={{color:"white", fontSize:"13px"}}>
+              Tip
+              <br/><span>50 Dwyt</span>
+              </span>
+              <div className="zoom col-6 pr-0 pl-0  imgBox" style={{textAlign: "center"}}>
+              <img src={like} style={{width:"30px",height:"30px"}} className="rounded zoom img mt-auto mb-auto" alt="..."
               onClick={(event) => {
               let tipAmount = "50"
               console.log(event.target.name, tipAmount)
               tipVideoOwner(event.target.name, window.web3.utils.toWei(tipAmount, 'Ether'))
-           }}></img>
-           <div className="rounded float-left mr-3 mb-0">
-           <h5 className="mt-2">Tip</h5>
+           }}></img></div>
            </div>
-              </div>
               </div>
           </div>
           <div className="padding-0 sideBar col-md-3" style={{ maxHeight: '768px', minWidth: '180px'}}>
@@ -178,7 +183,7 @@ start()
                       placeholder="Title..."
                       required />
                 </div>
-              <button type="submit" className="btn btn-dark btn-block btn-lg">Upload!</button>
+              <button type="submit" className="btn btn-dark btn-block btn-lg mr-3">Upload!</button>
               &nbsp;
             </form>
             </div>
