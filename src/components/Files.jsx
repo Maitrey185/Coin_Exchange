@@ -12,6 +12,7 @@ import {FilePreviewerThumbnail} from 'react-file-previewer';
 import Dropzone from 'react-dropzone'
 const  ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
+
 function Files(){
   var filesCount=0
   const files = useSelector((state)=> state.files)
@@ -45,7 +46,6 @@ console.log(file)
     setbuffer(Buffer(reader.result))
     settype(file.type)
     setname(file.name)
-
 
   }
 }
@@ -129,7 +129,6 @@ function StyledDropzone(props) {
     isDragAccept
   ]);
 
-
  const files = acceptedFiles.map(file => (
    <li key={file.path}>
      {file.path} - {file.size} bytes
@@ -171,7 +170,9 @@ console.log(filesCount)
 
  }
 }
-
+const [fileNames, setFileNames] = useState([]);
+  const handleDrop = acceptedFiles =>
+    setFileNames(acceptedFiles.map(file => file.name));
 
 useEffect(() => {
 start()
@@ -182,104 +183,102 @@ start()
 
     return (
       <div>
-      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
         <a
           className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="http://www.dappuniversity.com/bootcamp"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp;&nbsp;Photos
+          &nbsp;&nbsp;<span style={{color:"white"}}>WoltBox</span>
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-            <small className="text-secondary">
-              <small id="account">777</small>
-            </small>
-            "hhh"
+
+            <span style={{color:"white"}} id="account">Account: </span>
+            <span style={{color:"white"}}>{ac}</span>
           </li>
         </ul>
       </nav>
       <div className="container-fluid mt-5 text-center " style={{backgroundColor:"#090C10"}}>
        <div className="row">
-         <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '1024px' }}>
-           <div className="content">
-             <p>&nbsp;</p>
-             <div className="card mb-3 mx-auto bg-dark" style={{ maxWidth: '512px' }}>
-               <h2 className="text-white text-monospace bg-dark"><b><ins>Share File</ins></b></h2>
-                 <form onSubmit={(event) => {
-                   event.preventDefault()
-                   const description = dis
-                   uploadFile(description)
-                 }} >
-                     <div className="form-group">
-                       <br></br>
-                         <input
-                           id="fileDescription"
-                           type="text"
-                           onChange={handleChange}
-                           className="form-control text-monospace"
-                           placeholder="description..."
-                           required />
-                     </div>
-                   <input type="file" onChange={captureFile} className="text-white text-monospace"/>
-                   <button type="submit" className="btn-primary btn-block"><b>Upload!</b></button>
-                 </form>
-                 <StyledDropzone/>
-             </div>
-             <p>&nbsp;</p>
-             <table className="table-sm table-bordered text-monospace" style={{ width: '1000px', maxHeight: '450px'}}>
-               <thead style={{ 'fontSize': '15px' }}>
-                 <tr className="bg-dark text-white">
-                   <th scope="col" style={{ width: '10px'}}>id</th>
-                   <th scope="col" style={{ width: '200px'}}>name</th>
-                   <th scope="col" style={{ width: '230px'}}>description</th>
-                   <th scope="col" style={{ width: '120px'}}>type</th>
-                   <th scope="col" style={{ width: '90px'}}>size</th>
-                   <th scope="col" style={{ width: '90px'}}>date</th>
-                   <th scope="col" style={{ width: '120px'}}>uploader/view</th>
-                   <th scope="col" style={{ width: '120px'}}>Download</th>
-                 </tr>
-               </thead>
-               { files.list.map((file, key) => {
-                 var url = "https://ipfs.infura.io/ipfs/" + file.data.fileHash;
-                 return(
+       <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
+         <div className="content mr-auto ml-auto">
+           <p>&nbsp;</p>
+           <h2 style={{color:"white"}}>Share File</h2>
+           <form onSubmit={(event) => {
+             event.preventDefault()
+             const description = dis
+             uploadFile(description)
 
-                   <thead style={{ 'fontSize': '12px' }} key={file.id}>
-                             <tr className="bg-dark text-white">
-                        <td>{key}</td>
-                        <td>
+               }} >
+                 <input style={{color:"white"}} type='file' onChange={captureFile}/>
+                   <div className="form-group">
+                     <br></br>
+                     <input
+                       id="fileDescription"
+                       type="text"
+                       onChange={handleChange}
+                       className="form-control text-monospace"
+                       placeholder="description..."
+                       required />
+                   </div>
+                 <button type="submit" className="btn btn-dark btn-block btn-lg">Upload!</button>
+               </form>
 
-                        {file.data.fileName}</td>
-                        <td>{file.data.fileDescription}</td>
-                        <td>{file.data.fileType}</td>
-                        <td>{convertBytes(file.data.fileSize._hex)}</td>
-                        <td>{moment.unix(file.data.uploadTime._hex).format('h:mm:ss A M/D/Y')}</td>
-                        <td>
-                          <a
-                            href={url}
-                            rel="noopener noreferrer"
-                            target="_blank">
-                            {file.data.uploader.substring(0,10)}...
-                          </a>
-                         </td>
-                        <td>
-                          <a
-                            href={"https://ipfs.infura.io/ipfs/" + file.data.fileHash}
-                            rel="noopener noreferrer"
-                            target="_blank">
-                            {file.data.fileHash.substring(0,10)}...
-                          </a>
-                        </td>
-                      </tr>
-                    </thead>
-                 )
-               })}
-             </table>
+             <p>&nbsp;</p>
+
            </div>
          </main>
        </div>
+       <table className="table-sm table-bordered text-monospace m-auto" style={{ width: '1000px', maxHeight: '450px'}}>
+         <thead style={{ 'fontSize': '15px' }}>
+           <tr className="bg-dark text-white">
+             <th scope="col" style={{ width: '10px'}}>id</th>
+             <th scope="col" style={{ width: '200px'}}>name</th>
+             <th scope="col" style={{ width: '230px'}}>description</th>
+             <th scope="col" style={{ width: '120px'}}>type</th>
+             <th scope="col" style={{ width: '90px'}}>size</th>
+             <th scope="col" style={{ width: '90px'}}>date</th>
+             <th scope="col" style={{ width: '120px'}}>uploader/view</th>
+             <th scope="col" style={{ width: '120px'}}>Download</th>
+           </tr>
+         </thead>
+         { files.list.map((file, key) => {
+           var url = "https://ipfs.infura.io/ipfs/" + file.data.fileHash;
+           return(
+
+             <thead style={{ 'fontSize': '12px' }} key={file.id}>
+                       <tr className="bg-dark text-white">
+                  <td>{key}</td>
+                  <td>
+
+                  {file.data.fileName}</td>
+                  <td>{file.data.fileDescription}</td>
+                  <td>{file.data.fileType}</td>
+                  <td>{convertBytes(file.data.fileSize._hex)}</td>
+                  <td>{moment.unix(file.data.uploadTime._hex).format('h:mm:ss A M/D/Y')}</td>
+                  <td>
+                    <a
+                      href={url}
+                      rel="noopener noreferrer"
+                      target="_blank">
+                      {file.data.uploader.substring(0,10)}...
+                    </a>
+                   </td>
+                  <td>
+                    <a
+                      href={"https://ipfs.infura.io/ipfs/" + file.data.fileHash}
+                      rel="noopener noreferrer"
+                      target="_blank">
+                      {file.data.fileHash.substring(0,10)}...
+                    </a>
+                  </td>
+                </tr>
+              </thead>
+           )
+         })}
+       </table>
      </div>
       </div>
     );

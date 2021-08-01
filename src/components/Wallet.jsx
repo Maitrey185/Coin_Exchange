@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Link,useHistory} from "react-router-dom
 import BuyForm from './BuyForm'
 import {useSelector} from 'react-redux'
 import SellForm from './SellForm'
-import logo from '../logo3.png'
+import logo from '../logoff.png'
 import buyTokens from './Home'
 import store from "../store"
 
@@ -25,9 +25,12 @@ function Wallet() {
       content = <SellForm/>
     }
     return (
-      <div id="content" className="mt-3 text-center" style={{maxWidth:"600px", margin:"auto", padding:"200px 0px 200px 0px"}}>
-
-        <div className="d-flex justify-content-between mb-3 mt-9">
+      <div id="content" className="mt-3 text-center" style={{maxWidth:"600px", margin:"auto"}}>
+      <br/>
+        <h1 className="mt-3 text-light">Wallet</h1>
+        <br/>
+        <br/>
+        <div className="d-flex justify-content-between mb-3 mt-3">
           <button
               className="btn btn-light"
               onClick={() => setform('buy')}>

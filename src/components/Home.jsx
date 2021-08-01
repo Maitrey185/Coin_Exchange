@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import './App.css';
 import  Web3 from 'web3';
-import logo from '../logo.png'
+import logo from '../logoff.png'
 import wallet from '../wallet-vector.jpg'
 import gram from '../gram.jpg'
 import box1 from '../box1.jpg'
@@ -47,35 +47,18 @@ function Home(){
 
   let history = useHistory();
 
-  const someEventHandler = event => {
-          history.push({
-           pathname: '/wallet',
-           state: { detail: 'some_value' }
-       });
-    };
-    const phoEventHandler = event => {
-            history.push({
-             pathname: '/photo',
-             state: { detail: 'some_value' }
-         });
-
-
-      };
-      const viEventHandler = event => {
-              history.push({
-               pathname: '/video',
-               state: { detail: 'some_value' }
-           });
-
-
+      const someEventHandler = event => {
+              history.push('/wallet')
         };
-        const fiEventHandler = event => {
-                history.push({
-                 pathname: '/file',
-                 state: { detail: 'some_value' }
-             });
+      const phoEventHandler = event => {
+            history.push('/photo')
+         };
 
-
+      const viEventHandler = event => {
+              history.push('/video')
+        };
+      const fiEventHandler = event => {
+                history.push('/file')
           };
   const dispatch = useDispatch();
 
@@ -174,10 +157,9 @@ height: '100%'}}>
         </nav>
         <br/>
         <br/>
-        <br/>
 
         <br/>
-          <div className="container-fluid text-center" style={{width:"70%"}}>
+          <div className="container-fluid text-center" style={{width:"80%"}}>
 
               <div className="text-center">
                 <h1 className="ml-auto mr-auto" style={{color:"white"}}>EthMedia</h1>
@@ -216,12 +198,16 @@ height: '100%'}}>
                       Wallet
                     </FrontSide>
                     <BackSide
-                      style={{backgroundColor:"#ffffff",
-                      paddingTop:"1px",
+                    style={{backgroundColor:"#ffffff",
+                    paddingTop:"1px"}}
+                      >
+                      <div style={{
                       fontWeight: "bold",
                       fontSize: "150%",
-                      textAlign:"center",}}>
-                      Wallet
+                      textAlign:"center",}}>Wallet</div>
+                      <div></div>
+                      <br/>
+                      <button className="float-bottom" onClick={someEventHandler}>Enter</button>
                     </BackSide>
                   </Flippy>
                   </div>
@@ -250,20 +236,25 @@ height: '100%'}}>
         height: '100%'
                       }}
                     >
+
                       WoltGram
                     </FrontSide>
                     <BackSide
-                      style={{backgroundColor:"#ffffff",
-                      paddingTop:"1px",
+                    style={{backgroundColor:"#ffffff",
+                    paddingTop:"1px"}}
+                      >
+                      <div style={{
                       fontWeight: "bold",
                       fontSize: "150%",
-                      textAlign:"center",}}>
-                      WoltGram
+                      textAlign:"center",}}>WoltGram</div>
+                      <div></div>
+                      <br/>
+                      <button className="float-bottom" onClick={phoEventHandler}>Enter</button>
                     </BackSide>
                   </Flippy>
                   <Flippy
-                  className='col-lg-3 col-sm-6 mr-auto ml-auto'
-                    onClick={someEventHandler}
+                  className='col-lg-3 col-sm-6 mr-0 ml-0'
+                    
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
@@ -288,12 +279,17 @@ height: '100%'}}>
                       WoltTube
                     </FrontSide>
                     <BackSide
-                      style={{backgroundColor:"#ffffff",
-                      paddingTop:"1px",
+                    style={{backgroundColor:"#ffffff",
+                    paddingTop:"1px"}}
+                      >
+                      <div style={{
                       fontWeight: "bold",
                       fontSize: "150%",
-                      textAlign:"center",}}>
-                      WoltTube
+                      textAlign:"center",}}>WoltTube</div>
+                      <div></div>
+                      <br/>
+                      <button className="float-bottom" onClick={viEventHandler}>Enter</button>
+
                     </BackSide>
                   </Flippy>
                   <Flippy
@@ -322,12 +318,18 @@ height: '100%'}}>
                       WoltBox
                     </FrontSide>
                     <BackSide
-                      style={{backgroundColor:"#ffffff",
-                      paddingTop:"1px",
+                    style={{backgroundColor:"#ffffff",
+                    paddingTop:"1px"}}
+                      >
+                      <div style={{
                       fontWeight: "bold",
                       fontSize: "150%",
-                      textAlign:"center",}}>
-                      WoltBox
+                      textAlign:"center",}}>WoltBox</div>
+                      <div></div>
+
+                      <br/>
+                      <button className="float-bottom" onClick={fiEventHandler}>Enter</button>
+
                     </BackSide>
                   </Flippy>
                   </div>

@@ -25,6 +25,7 @@ function Videos(){
   const [isLoading, setIsLoading] = useState(false);
   const [currentHash, setcurrentHash] = useState("");
   const [currentTitle, setcurrentTitle] = useState("");
+  const [currentId, setcurrentId] = useState("");
 
   function captureFile(event){
    event.preventDefault()
@@ -59,8 +60,8 @@ function Videos(){
 }
 
 async function tipVideoOwner(id, tipAmount) {
-  id=parseInt(id)
-  id=(id+1).toString()
+  id=(id).toString()
+
   console.log(id)
   console.log(tipAmount)
   setIsLoading(true)
@@ -92,11 +93,13 @@ console.log(videosCount)
    console.log(video)
  }
  const latest = await ethSwap.methods.videos(videosCount).call()
+        setcurrentId(videosCount)
         setcurrentHash(latest.hash)
         setcurrentTitle(latest.title)
 }
 
-function changeVideo(hash, title){
+function changeVideo(key, hash, title){
+  setcurrentId(key)
   setcurrentHash(hash)
   setcurrentTitle(title)
  }
@@ -117,7 +120,7 @@ start()
           rel="noopener noreferrer"
         >
           <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp;&nbsp;<span style={{color:"white"}}>DwytTube</span>
+          &nbsp;&nbsp;<span style={{color:"white"}}>WoltTube</span>
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -127,39 +130,36 @@ start()
           </li>
         </ul>
       </nav>
-      <div className="text-monospace">
+      <div>
           <br></br>
           &nbsp;
           <br></br>
           <div className="row">
             <div className="col-md-9 padding-0">
-              <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '800px'}}>
+              <div className="embed-responsive embed-responsive-16by9" style={{ maxHeight: '770px'}}>
 
                 <video
+
                   src={`https://ipfs.infura.io/ipfs/${currentHash}`}
                   controls
                 >
                 </video>
 
               </div>
-              <div style={{paddingLeft:"10px", marginLeft:"10px", color:"white"}}>
+              <div style={{paddingLeft:"5px", marginLeft:"5px", color:"white"}}>
               <h4 className="rounded float-left"><b><i>{currentTitle}</i></b></h4>
-              <div className="float-right row" style={{width:"100px"}}>
-              <span className="col-6 pr-0 pl-0" style={{color:"white", fontSize:"13px"}}>
-              Tip
-              <br/><span>50 Dwyt</span>
-              </span>
-              <div className="zoom col-6 pr-0 pl-0  imgBox" style={{textAlign: "center"}}>
-              <img src={like} style={{width:"30px",height:"30px"}} className="rounded zoom img mt-auto mb-auto" alt="..."
+              <div className="float-right pr-2 ">
+              <img title='Tip 50 DWYT' src={like} style={{width:"30px",height:"30px"}}className="rounded zoom img mt-auto mb-auto" alt="..."
               onClick={(event) => {
               let tipAmount = "50"
-              console.log(event.target.name, tipAmount)
-              tipVideoOwner(event.target.name, window.web3.utils.toWei(tipAmount, 'Ether'))
-           }}></img></div>
+              console.log(currentId, tipAmount)
+              tipVideoOwner(currentId, window.web3.utils.toWei(tipAmount, 'Ether'))
+           }}></img>
            </div>
+
               </div>
           </div>
-          <div className="padding-0 sideBar col-md-3" style={{ maxHeight: '768px', minWidth: '180px'}}>
+          <div className="padding-0 sideBar col-md-3" style={{ maxHeight: '768px'}}>
           <div className="videoForm">
           <div>
             <h5 style={{color:"white"}}><b>Share Video</b></h5>
@@ -192,7 +192,7 @@ start()
             { videos.list.map((video, key) => {
               return(
                 <div className="block row" style={{ maxHeight: '160px'}} key={key} >
-                  <div className="col-7 " style={{ maxHeight: '160px'}} onClick={() => changeVideo(video.data.hash, video.data.title)}>
+                  <div className="col-7 " style={{ maxHeight: '160px'}} onClick={() => changeVideo(key, video.data.hash, video.data.title)}>
 
                       <div className="vThumb">
                       <VideoThumbnail

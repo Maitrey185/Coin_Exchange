@@ -5,7 +5,7 @@ import {changetokbal} from '../actions/index'
 import {changebal} from '../actions/index'
 import store from "../store"
 import ethLogo from '../eth-logo.png'
-import logo from '../logo3.png'
+import logo from '../logoff.png'
 import  Web3 from 'web3';
 
 function SellForm() {
@@ -68,7 +68,7 @@ function SellForm() {
           <div className="input-group-append">
             <div className="input-group-text">
               <img src={logo} height='32' alt=""/>
-              &nbsp; DApp
+              &nbsp; Wolt
             </div>
           </div>
         </div>
@@ -95,9 +95,9 @@ function SellForm() {
         </div>
         <div className="mb-5">
           <span className="float-left text-muted">Exchange Rate</span>
-          <span className="float-right text-muted">500 Dwyt = 1 ETH</span>
+          <span className="float-right text-muted">500 Wolt = 1 ETH</span>
         </div>
-        <button type="submit" className="btn btn-primary btn-block btn-lg">SWAP!</button>
+        <button type="submit" className="btn btn-dark btn-block btn-lg">Sell!</button>
       </form>
     );
 

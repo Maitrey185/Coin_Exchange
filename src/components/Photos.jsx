@@ -161,7 +161,7 @@ start()
                       </div>
                       <ul id="imageList" className="list-group list-group-flush">
                         <li className="list-group-item l1">
-                          <p className="text-center"><img className='zoom1' src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '460px'}}/></p>
+                          <p className="text-center"><img src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '460px'}}/></p>
                             <br/>
                           <p style={{color:"white"}}>{image.data.description}</p>
                         </li>
@@ -169,7 +169,7 @@ start()
                           <p style={{color:"white", fontSize:"13px"}} className="zoom float-left mt-1 mb-1">
                             TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} DWYT
                           </p>
-                          <div className="float-right ">  
+                          <div className="float-right ">
                           <img title='Tip 50 DWYT' src={like} style={{width:"30px",height:"30px"}} name={key} className="rounded zoom img mt-auto mb-auto" alt="..."
                           onClick={(event) => {
                           let tipAmount = "50"

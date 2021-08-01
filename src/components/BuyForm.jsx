@@ -5,7 +5,7 @@ import {changetokbal} from '../actions/index'
 import {changebal} from '../actions/index'
 import store from "../store"
 import ethLogo from '../eth-logo.png'
-import logo from '../logo7.png'
+import logo from '../logoff.png'
 import  Web3 from 'web3';
 
 function BuyForm() {
@@ -103,15 +103,15 @@ async function buyTokens(etherAmount){
             <div className="input-group-text">
               <img  height='32' alt=""/>
               <img src={logo} height='32' alt=""/>
-              &nbsp; Dwyt
+              &nbsp; Wolt
             </div>
           </div>
         </div>
         <div className="mb-5">
           <span className="float-left text-muted">Exchange Rate</span>
-          <span className="float-right text-muted">1 ETH = 500 Dwyt</span>
+          <span className="float-right text-muted">1 ETH = 500 Wolt</span>
         </div>
-        <button type="submit" className="btn btn-primary btn-block btn-lg">SWAP!</button>
+        <button type="submit" className="btn btn-dark btn-block btn-lg">Buy!</button>
       </form>
     );
 
