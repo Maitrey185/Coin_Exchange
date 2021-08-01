@@ -6,7 +6,7 @@ import {addfile} from '../actions/index'
 import {resetf} from '../actions/index'
 import moment from 'moment'
 import {useDropzone} from 'react-dropzone';
-
+import { BrowserRouter as Router, Route, Link, useHistory} from "react-router-dom";
 import {FilePreviewerThumbnail} from 'react-file-previewer';
 
 import Dropzone from 'react-dropzone'
@@ -174,7 +174,12 @@ const [fileNames, setFileNames] = useState([]);
   const handleDrop = acceptedFiles =>
     setFileNames(acceptedFiles.map(file => file.name));
 
+
+
 useEffect(() => {
+
+
+
 start()
 
 },[filesCount]);

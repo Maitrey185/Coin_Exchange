@@ -188,7 +188,6 @@ start()
             </form>
             </div>
             </div>
-            &nbsp;
             { videos.list.map((video, key) => {
               return(
                 <div className="block row" style={{ maxHeight: '160px'}} key={key} >

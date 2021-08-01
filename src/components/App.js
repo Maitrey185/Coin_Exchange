@@ -12,7 +12,7 @@ import Videos from './Videos'
 import Files from './Files'
 import {useSelector, useDispatch} from 'react-redux'
 import {addphoto} from '../actions/index'
-
+import RefreshRoute from './refreshRoute'
 function App() {
 
 
@@ -21,10 +21,10 @@ function App() {
       <Router>
       <Switch>
       <Route path="/" exact><Home/></Route>
-      <Route path="/wallet" exact><Wallet/></Route>
-      <Route path="/photo" exact><Photos/></Route>
-      <Route path="/video" exact><Videos/></Route>
-      <Route path="/file" exact><Files/></Route>
+      <RefreshRoute exact path="/wallet" component={Wallet} />
+      <RefreshRoute exact path="/photo" component={Photos} />
+      <RefreshRoute exact path="/video" component={Videos} />
+      <RefreshRoute exact path="/file" component={Files} />
       </Switch>
       </Router>
 

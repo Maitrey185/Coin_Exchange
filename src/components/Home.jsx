@@ -254,7 +254,7 @@ height: '100%'}}>
                   </Flippy>
                   <Flippy
                   className='col-lg-3 col-sm-6 mr-0 ml-0'
-                    
+
                     flipOnHover={true} // default false
                     flipOnClick={false} // default false
                     flipDirection="horizontal" // horizontal or vertical
