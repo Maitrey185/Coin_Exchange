@@ -35,6 +35,9 @@ function Photos(){
 
   }
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   function uploadImage(description) {
   console.log("Submitting file to ipfs...")
@@ -44,29 +47,34 @@ function Photos(){
     console.log('Ipfs result', result)
     if(error) {
       console.error(error)
+      setIsLoading(false)
       return
     }
-    setIsLoading(true)
-    ethSwap.methods.uploadImage(result[0].hash, description).send({ from: ac }).on('transactionHash', (hash) => {
+
+    ethSwap.methods.uploadImage(result[0].hash, description).send({ from: ac }).on('transactionHash', async(hash) => {
+      await sleep(2000)
       start()
-    setIsLoading(false)
+
     })
+    setIsLoading(false)
   })
 
 }
+
 
 async function tipImageOwner(id, tipAmount) {
   id=parseInt(id)
   id=(id+1).toString()
   console.log(id)
   console.log(tipAmount)
-  setIsLoading(true)
+
   await token.methods.approve(ethSwap.address, tipAmount).send({ from: ac }).on('transactionHash', async(hash) => {
   await ethSwap.methods.tipImageOwner(id, tipAmount).send({ from: ac}).on('transactionHash', (hash) => {
     console.log(hash)
     start()
-  setIsLoading(false)
+
   })
+
 })
 }
 
@@ -76,6 +84,11 @@ function handleChange(event) {
 setdis(event.target.value);
 console.log(dis)
 };
+function handleClear() {
+setdis("");
+
+};
+
 
 async function start() {
   console.log("nwwwww")
@@ -98,7 +111,6 @@ start()
 },[imagesCount]);
 
 
-
     return (
       <div className="photos" style={{backgroundColor:"#090C10"}}>
       <nav className="my-nav navbar fixed-top flex-md-nowrap p-1 shadow">
@@ -108,7 +120,7 @@ start()
           rel="noopener noreferrer"
         >
           <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp;&nbsp;<span style={{color:"white"}}>DwytGram</span>
+          &nbsp;&nbsp;<span style={{color:"white"}}>WoltGram</span>
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -121,34 +133,43 @@ start()
       <div className="container-fluid mt-5">
         <div data-theme="dark" className="row">
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
-            <div className="content mr-auto ml-auto">
+            <div className="content">
               <p>&nbsp;</p>
               <h2 style={{color:"white"}}>Share Image</h2>
-              <form onSubmit={(event) => {
+              <form className="text-center" onSubmit={(event) => {
+                setIsLoading(true)
                 event.preventDefault()
                 const description = dis
                 uploadImage(description)
 
               }} >
-                <input style={{color:"white"}} type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={captureFile}/>
-                  <div className="form-group mr-sm-2">
+                <input className="float-left" style={{color:"white"}} type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={captureFile}/>
+                  <br></br>
+                  <div className="form-group mr-sm-2 text-center">
                     <br></br>
                       <input
 
                         id="imageDescription"
                         type="text"
                         onChange={handleChange}
+                        value={dis}
                         className="form-control"
                         placeholder="Image description..."
                         required />
                   </div>
-                <button type="submit" className="btn btn-dark btn-block btn-lg">Upload!</button>
+
+                  {isLoading
+                    ? <div className="ml-auto mr-auto"><div class="spinner-border mt-4 text-light" style={{width: "2rem", height: "2rem"}} role="status"><span class="sr-only">Loading...</span></div>  </div>
+                    : <button type="submit" onclick="handleClear();" className="btn btn-dark btn-block btn-lg">Upload!</button>
+                  }
+
+
               </form>
               <p>&nbsp;</p>
               { images.list.map((image,key) => {
                   return(
                     <div className="card mb-4" style={{ maxHeight: '700px', maxWidth:'600px' }} key={image.id} >
-                    <div >
+                    <div className="float-left">
                       <div className="card-header">
                         <img
                           className='mr-2 zoom1'
@@ -163,12 +184,13 @@ start()
                         <li className="list-group-item l1">
                           <p className="text-center"><img src={`https://ipfs.infura.io/ipfs/${image.data.hash}`} style={{ maxWidth: '460px'}}/></p>
                             <br/>
-                          <p style={{color:"white"}}>{image.data.description}</p>
+                          <p className="float-left" style={{color:"white"}}>{image.data.description}</p>
                         </li>
                         <li key={image.id} className=" list-group-item l2 py-2">
-                          <p style={{color:"white", fontSize:"13px"}} className="zoom float-left mt-1 mb-1">
-                            TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} DWYT
+                          <p style={{color:"white", fontSize:"13px"}} className="float-left mt-1 mb-1">
+                            TIPS: {window.web3.utils.fromWei(image.data.tipAmount.toString(), 'Ether')} Wolt
                           </p>
+
                           <div className="float-right ">
                           <img title='Tip 50 DWYT' src={like} style={{width:"30px",height:"30px"}} name={key} className="rounded zoom img mt-auto mb-auto" alt="..."
                           onClick={(event) => {

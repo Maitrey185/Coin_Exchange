@@ -334,11 +334,7 @@ height: '100%'}}>
                   </Flippy>
                   </div>
 
-                    <button onClick={someEventHandler}>Click me
-                    </button>
-                    <button onClick={phoEventHandler}>Photorrso</button>
-                    <button onClick={viEventHandler}>videorrso</button>
-                    <button onClick={fiEventHandler}>filerrso</button></div>
+                  </div>
                 }
                 </div>
 

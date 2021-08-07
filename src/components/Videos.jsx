@@ -48,13 +48,15 @@ function Videos(){
     console.log('Ipfs result', result)
     if(error) {
       console.error(error)
+      setIsLoading(false)
       return
     }
-    setIsLoading(true)
+
     ethSwap.methods.uploadVideo(result[0].hash, title).send({ from: ac }).on('transactionHash', (hash) => {
       start()
-    setIsLoading(false)
+
     })
+    setIsLoading(false)
   })
 
 }
@@ -68,8 +70,9 @@ async function tipVideoOwner(id, tipAmount) {
   await token.methods.approve(ethSwap.address, tipAmount).send({ from: ac }).on('transactionHash', async(hash) => {
   await ethSwap.methods.tipVideoOwner(id, tipAmount).send({ from: ac}).on('transactionHash', (hash) => {
     console.log(hash)
-  setIsLoading(false)
+
   })
+  setIsLoading(false)
 })
 }
 
@@ -163,7 +166,8 @@ start()
           <div className="videoForm">
           <div>
             <h5 style={{color:"white"}}><b>Share Video</b></h5>
-            <form  onSubmit={(event) => {
+            <form className="text-center" onSubmit={(event) => {
+              setIsLoading(true)
               event.preventDefault()
               const tit = title
               uploadVideo(tit)
@@ -171,7 +175,8 @@ start()
 
 
 
-              <input style={{color:"white"}} type='file' accept=".mp4, .mkv .ogg .wmv" onChange={captureFile}/>
+              <input className="float-left" style={{color:"white"}} type='file' accept=".mp4, .mkv .ogg .wmv" onChange={captureFile}/>
+                   <br></br>
                 <div className="form-group mr-sm-2">
                   <br></br>
                     <input
@@ -183,7 +188,10 @@ start()
                       placeholder="Title..."
                       required />
                 </div>
-              <button type="submit" className="btn btn-dark btn-block btn-lg mr-3">Upload!</button>
+                {isLoading
+                  ? <div className="ml-auto mr-auto"><div class="spinner-border mt-4 text-light" style={{width: "2rem", height: "2rem"}} role="status"><span class="sr-only">Loading...</span></div>  </div>
+                  : <button type="submit" className="btn btn-dark btn-block btn-lg">Upload!</button>
+                }
               &nbsp;
             </form>
             </div>
